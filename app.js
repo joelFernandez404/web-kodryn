@@ -478,52 +478,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // ==========================================================================
-    // MODULE: SECTION EXIT BLUR
-    // As you scroll past a section (Home, Servicios, Sobre nosotros, etc.),
-    // it progressively blurs and fades out as a whole — like the previous
-    // "page" dissolving away while the next one slides up over it — instead
-    // of just abruptly scrolling out of view.
-    // ==========================================================================
-    const scrollSections = Array.from(document.querySelectorAll('main > section'));
-    const prefersReducedMotionScroll = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    if (scrollSections.length && !prefersReducedMotionScroll) {
-        const MAX_BLUR_PX = 10;
-        const MIN_OPACITY = 0.25;
-        let fadeDistance = window.innerHeight * 0.6;
-        let ticking = false;
-
-        function updateSectionFades() {
-            scrollSections.forEach(section => {
-                const top = section.getBoundingClientRect().top;
-                if (top < 0) {
-                    const progress = Math.min(-top / fadeDistance, 1);
-                    section.style.filter = `blur(${(progress * MAX_BLUR_PX).toFixed(2)}px)`;
-                    section.style.opacity = String(1 - progress * (1 - MIN_OPACITY));
-                } else {
-                    section.style.filter = '';
-                    section.style.opacity = '';
-                }
-            });
-            ticking = false;
-        }
-
-        function requestSectionFadeUpdate() {
-            if (!ticking) {
-                requestAnimationFrame(updateSectionFades);
-                ticking = true;
-            }
-        }
-
-        window.addEventListener('scroll', requestSectionFadeUpdate, { passive: true });
-        window.addEventListener('resize', () => {
-            fadeDistance = window.innerHeight * 0.6;
-            requestSectionFadeUpdate();
-        });
-
-        updateSectionFades();
-    }
 
     // ==========================================================================
     // MODULE: SERVICES CAROUSEL (fanned deck, film-reel style)
