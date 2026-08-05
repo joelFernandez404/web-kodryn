@@ -208,8 +208,8 @@ button {
 
 @media (max-width: 768px) {
     .whatsapp-float {
-        right: 16px;
-        bottom: 16px;
+        right: 24px;
+        bottom: 40px;
         width: 52px;
         height: 52px;
     }
@@ -2233,7 +2233,8 @@ body.dark-mode .stat-badge {
         padding: 40px 24px;
         gap: 30px;
         transform: translateX(100%);
-        transition: transform var(--transition-normal);
+        visibility: hidden;
+        transition: transform var(--transition-normal), visibility var(--transition-normal);
         border: none;
         border-top: 1px solid var(--border-color);
         border-radius: 0;
@@ -2249,6 +2250,7 @@ body.dark-mode .stat-badge {
 
     .nav-menu.open {
         transform: translateX(0);
+        visibility: visible;
     }
 
     .nav-hover-bg {
@@ -2266,7 +2268,7 @@ body.dark-mode .stat-badge {
     }
 
     .hero-sticky-stage {
-        padding-top: calc(var(--header-height) + 20px);
+        padding-top: calc(var(--header-height) + 60px);
         padding-bottom: 60px;
     }
 
