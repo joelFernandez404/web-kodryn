@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kodryn | Desarrollo de Software & IA-Native para Startups</title>
+    <meta name="description"
+        content="Lanzamos tu MVP en tiempo récord. En Kodryn desarrollamos software a medida, automatizaciones con IA y páginas web de alto impacto. ADN 100% startup.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="image-slot.js"></script>
+</head>
+
+<body class="dark-mode">
+    <!-- Navbar -->
+    <header class="header">
+        <div class="container header-container">
+            <a href="#" class="logo" id="nav-logo">
+                <img src="Logo.png" alt="" class="logo-img">
+            </a>
+
+            <nav class="nav-menu" id="nav-menu">
+                <div class="nav-hover-bg" id="nav-hover-bg"></div>
+                <a href="#services" class="nav-link">Servicios</a>
+                <a href="#about" class="nav-link">Sobre nosotros</a>
+                <a href="#process" class="nav-link">Método</a>
+                <a href="#contact" class="nav-link">Contacto</a>
+            </nav>
+
+            <div class="nav-actions">
+                <a href="#contact" class="btn btn-outline nav-cta">Hablemos</a>
+                <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Menu de navegación">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-section" id="hero">
+            <div class="hero-sticky-stage">
+                <div class="hero-bg-gradients">
+                    <canvas class="hero-stars" id="hero-stars" aria-hidden="true"></canvas>
+                    <div class="gradient-blob blob-1"></div>
+                    <div class="gradient-blob blob-2"></div>
+                </div>
+                <div class="container hero-container hero-container--split">
+                    <div class="hero-content hero-content--left">
+                        <div class="hero-badge-pill reveal-on-scroll">
+                            <span class="badge-tag-blue">We're</span>
+                            <span class="badge-text-glass">IA-Native</span>
+                        </div>
+                        <h1 class="hero-title hero-title--left">
+                            Intelligent Solutions<br><span class="text-blue">Powered by AI</span>
+                        </h1>
+                        <p class="hero-subtitle hero-subtitle--left reveal-on-scroll">
+                            Desarrollamos MVPs, automatizaciones con IA y páginas web de alto impacto. Cada producto
+                            pensado para escalar.
+                        </p>
+                        <div class="hero-ctas hero-ctas--left reveal-on-scroll">
+                            <a href="#contact" class="btn-primary-hero">Iniciar Proyecto</a>
+                            <a href="#services" class="btn-outline-hero">Explorar Servicios</a>
+                        </div>
+                    </div>
+
+                    <div class="hero-visual" aria-hidden="true">
+                        <div class="hero-visual-glow"></div>
+
+                        <div class="mac-window" id="mac-window">
+                            <div class="mac-window-bar">
+                                <span class="mac-dot mac-dot--red"></span>
+                                <span class="mac-dot mac-dot--yellow"></span>
+                                <span class="mac-dot mac-dot--green"></span>
+                                <span class="mac-window-title" id="mac-window-title">CRM — Automatización IA</span>
+                            </div>
+
+                            <div class="mac-window-body">
+                                <!-- Panel 1: CRM dashboard -->
+                                <div class="mac-panel mac-panel--crm is-active" data-title="CRM — Automatización IA">
+                                    <div class="crm-sidebar">
+                                        <span class="crm-sidebar-logo"></span>
+                                        <span class="crm-nav-item crm-nav-item--active"></span>
+                                        <span class="crm-nav-item"></span>
+                                        <span class="crm-nav-item"></span>
+                                        <span class="crm-nav-item"></span>
+                                    </div>
+
+                                    <div class="crm-main">
+                                        <div class="crm-stats-row">
+                                            <div class="crm-stat">
+                                                <span class="crm-stat-label"></span>
+                                                <span class="crm-stat-value">128</span>
+                                            </div>
+                                            <div class="crm-stat">
+                                                <span class="crm-stat-label"></span>
+                                                <span class="crm-stat-value crm-stat-value--accent">76%</span>
+                                            </div>
+                                            <div class="crm-stat">
+                                                <span class="crm-stat-label"></span>
+                                                <span class="crm-stat-value">4.2h</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="crm-list">
+                                            <div class="crm-row">
+                                                <span class="crm-avatar"></span>
+                                                <span class="crm-row-lines">
+                                                    <span class="crm-line crm-line--name"></span>
+                                                    <span class="crm-line crm-line--sub"></span>
+                                                </span>
+                                                <span class="crm-badge crm-badge--ai">
+                                                    <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor">
+                                                        <path
+                                                            d="M12 2l1.8 5.6L19.5 9l-5.7 1.4L12 16l-1.8-5.6L4.5 9l5.7-1.4L12 2z">
+                                                        </path>
+                                                    </svg>
+                                                    IA
+                                                </span>
+                                            </div>
+                                            <div class="crm-row">
+                                                <span class="crm-avatar"></span>
+                                                <span class="crm-row-lines">
+                                                    <span class="crm-line crm-line--name"></span>
+                                                    <span class="crm-line crm-line--sub"></span>
+                                                </span>
+                                                <span class="crm-badge crm-badge--pulse">
+                                                    <span class="crm-pulse-dot"></span>
+                                                    Procesando
+                                                </span>
+                                            </div>
+                                            <div class="crm-row">
+                                                <span class="crm-avatar"></span>
+                                                <span class="crm-row-lines">
+                                                    <span class="crm-line crm-line--name"></span>
+                                                    <span class="crm-line crm-line--sub"></span>
+                                                </span>
+                                                <span class="crm-badge crm-badge--done">
+                                                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none"
+                                                        stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                                                        stroke-linejoin="round">
+                                                        <polyline points="20 6 9 17 4 12"></polyline>
+                                                    </svg>
+                                                </span>
+                                            </div>
+                                            <div class="crm-row">
+                                                <span class="crm-avatar"></span>
+                                                <span class="crm-row-lines">
+                                                    <span class="crm-line crm-line--name"></span>
+                                                    <span class="crm-line crm-line--sub"></span>
+                                                </span>
+                                                <span class="crm-badge crm-badge--ai">
+                                                    <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor">
+                                                        <path
+                                                            d="M12 2l1.8 5.6L19.5 9l-5.7 1.4L12 16l-1.8-5.6L4.5 9l5.7-1.4L12 2z">
+                                                        </path>
+                                                    </svg>
+                                                    IA
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Panel 2: Website preview -->
+                                <div class="mac-panel mac-panel--site" data-title="kodryn.dev — Preview">
+                                    <div class="site-nav">
+                                        <span class="site-nav-logo"></span>
+                                        <span class="site-nav-link"></span>
+                                        <span class="site-nav-link"></span>
+                                        <span class="site-nav-link"></span>
+                                        <span class="site-nav-cta"></span>
+                                    </div>
+                                    <div class="site-hero">
+                                        <span class="site-line site-line--title-1"></span>
+                                        <span class="site-line site-line--title-2 accent"></span>
+                                        <span class="site-line site-line--text"></span>
+                                        <span class="site-line site-line--text short"></span>
+                                        <span class="site-btn"></span>
+                                    </div>
+                                    <div class="site-cards">
+                                        <span class="site-card"></span>
+                                        <span class="site-card"></span>
+                                        <span class="site-card"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Panel 3: Code editor with typing animation -->
+                                <div class="mac-panel mac-panel--code" data-title="workflow.ts">
+                                    <div class="code-gutter">
+                                        <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+                                    </div>
+                                    <pre class="code-typed"
+                                        id="code-typed"><code></code><span class="code-cursor"></span></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hero-fade-base" aria-hidden="true"></div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section class="services-section" id="services">
+            <div class="container">
+                <div class="section-header reveal-on-scroll">
+                    <div class="badge-tag">Servicios</div>
+                    <h2 class="section-title">Lo que construimos</h2>
+                    <p class="section-subtitle"></p>
+                </div>
+
+                <div class="service-carousel" id="service-carousel">
+                    <div class="service-carousel-stage" id="service-carousel-stage">
+                        <!-- Card 1: Automatizaciones & IA -->
+                        <div class="service-card service-card--wide reveal-on-scroll" style="--glow:255,138,0">
+                            <div class="service-card-wide-intro">
+                                <div class="service-card-head">
+                                    <div class="service-icon-box">
+                                        <svg class="service-icon" width="26" height="26" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                            stroke-linejoin="round">
+                                            <rect x="4" y="4" width="16" height="16" rx="2" />
+                                            <rect x="9" y="9" width="6" height="6" stroke-width="1" />
+                                            <line x1="9" y1="1" x2="9" y2="4"></line>
+                                            <line x1="15" y1="1" x2="15" y2="4"></line>
+                                            <line x1="9" y1="20" x2="9" y2="23"></line>
+                                            <line x1="15" y1="20" x2="15" y2="23"></line>
+                                            <line x1="20" y1="9" x2="23" y2="9"></line>
+                                            <line x1="20" y1="15" x2="23" y2="15"></line>
+                                            <line x1="1" y1="9" x2="4" y2="9"></line>
+                                            <line x1="1" y1="15" x2="4" y2="15"></line>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <h3 class="service-card-title">Automatizaciones & IA</h3>
+                                <p class="service-card-text">Conectamos IA a tu día a día para que las tareas
+                                    repetitivas dejen de ser tu problema.</p>
+                                <a href="#contact" class="service-card-cta">Automatiza tu negocio <span class="cta-arrow">→</span></a>
+                            </div>
+                            <div class="service-card-features service-card-features--wide">
+                                <h4 class="service-feature-label">Incluye</h4>
+                                <ul class="service-feature-list service-feature-list--cols">
+                                    <li>Diagnóstico de procesos repetitivos y cuellos de botella</li>
+                                    <li>Chatbots y agentes IA conectados a WhatsApp, correo y CRM</li>
+                                    <li>Automatización de flujos (n8n, Make, Zapier)</li>
+                                    <li>Integración con tus herramientas actuales (Sheets, Notion, ERPs)</li>
+                                    <li>Soporte y ajustes después de la entrega</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Card 2: Software & MVPs -->
+                        <div class="service-card service-card--wide reveal-on-scroll" style="--glow:59,130,246">
+                            <div class="service-card-wide-intro">
+                                <div class="service-card-head">
+                                    <div class="service-icon-box">
+                                        <svg class="service-icon" width="26" height="26" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                            stroke-linejoin="round">
+                                            <polyline points="16 18 22 12 16 6"></polyline>
+                                            <polyline points="8 6 2 12 8 18"></polyline>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <h3 class="service-card-title">Software & MVPs</h3>
+                                <p class="service-card-text">Ideas convertidas en producto funcional en semanas. Un
+                                    solo equipo para arquitectura, base de datos e interfaz.</p>
+                                <a href="#contact" class="service-card-cta">Cuéntanos tu idea <span class="cta-arrow">→</span></a>
+                            </div>
+                            <div class="service-card-features service-card-features--wide">
+                                <h4 class="service-feature-label">Incluye</h4>
+                                <ul class="service-feature-list service-feature-list--cols">
+                                    <li>Arquitectura y stack a medida (web, móvil o ambos)</li>
+                                    <li>Diseño UI/UX enfocado en conversión</li>
+                                    <li>Backend, base de datos y APIs listas para escalar</li>
+                                    <li>Entrega funcional en semanas, no meses</li>
+                                    <li>Iteración continua según el feedback de tus usuarios</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Card 3: Páginas Web -->
+                        <div class="service-card service-card--wide reveal-on-scroll" style="--glow:0,196,255">
+                            <div class="service-card-wide-intro">
+                                <div class="service-card-head">
+                                    <div class="service-icon-box">
+                                        <svg class="service-icon" width="26" height="26" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                            stroke-linejoin="round">
+                                            <rect x="2" y="3" width="20" height="18" rx="2" />
+                                            <path d="M2 8h20" />
+                                            <circle cx="5" cy="5.5" r="1" fill="currentColor" stroke="none" />
+                                            <circle cx="8" cy="5.5" r="1" fill="currentColor" stroke="none" />
+                                            <circle cx="11" cy="5.5" r="1" fill="currentColor" stroke="none" />
+                                            <path d="M6 12h12M6 16h8" />
+                                        </svg>
+                                    </div>
+                                </div>
+                                <h3 class="service-card-title">Páginas Web</h3>
+                                <p class="service-card-text">Landings de conversión, SEO de clase mundial y velocidad
+                                    de carga instantánea.</p>
+                                <a href="#contact" class="service-card-cta">Quiero mi web <span class="cta-arrow">→</span></a>
+                            </div>
+                            <div class="service-card-features service-card-features--wide">
+                                <h4 class="service-feature-label">Incluye</h4>
+                                <ul class="service-feature-list service-feature-list--cols">
+                                    <li>Landing pages optimizadas para conversión</li>
+                                    <li>SEO técnico y on-page de clase mundial</li>
+                                    <li>Velocidad de carga y Core Web Vitals optimizados</li>
+                                    <li>Diseño responsive y accesible en todos los dispositivos</li>
+                                    <li>Integración con analítica y formularios de contacto</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Card 4: Capacitación IA (wide) -->
+                        <div class="service-card service-card--wide reveal-on-scroll" style="--glow:168,85,247">
+                            <div class="service-card-wide-intro">
+                                <div class="service-card-head">
+                                    <div class="service-icon-box">
+                                        <svg class="service-icon" width="26" height="26" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                            stroke-linejoin="round">
+                                            <path d="M22 10L12 5 2 10l10 5 10-5z"></path>
+                                            <path d="M6 12v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"></path>
+                                            <path d="M22 10v6"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <h3 class="service-card-title">Capacitación IA para equipos</h3>
+                                <p class="service-card-text">Enseñamos a tu equipo a usar IA en su día a día:
+                                    herramientas, prompting y automatización aplicados a casos reales de tu
+                                    negocio.</p>
+                                <a href="#contact" class="service-card-cta">Agenda una capacitación <span class="cta-arrow">→</span></a>
+                            </div>
+                            <div class="service-card-features service-card-features--wide">
+                                <h4 class="service-feature-label">Incluye</h4>
+                                <ul class="service-feature-list service-feature-list--cols">
+                                    <li>Talleres a medida según el nivel de tu equipo</li>
+                                    <li>Casos de uso reales aplicados a tu negocio</li>
+                                    <li>Prompting avanzado y uso de agentes IA</li>
+                                    <li>Automatización de tareas con IA generativa</li>
+                                    <li>Modalidad presencial o remota</li>
+                                    <li>Grupos reducidos para asegurar el aprendizaje</li>
+                                    <li>Material de apoyo y plantillas reutilizables</li>
+                                    <li>Seguimiento y soporte después del taller</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Us Section: centered lead paragraph over a row of stat
+             cards, the middle one elevated — modeled on a reference
+             "results" section, with faint concentric rings behind the cards. -->
+        <section class="about-results reveal-on-scroll" id="about">
+            <div class="about-results-rings" aria-hidden="true"></div>
+            <div class="container">
+                <div class="about-results-intro">
+                    <div class="badge-tag about-results-badge">Sobre Nosotros</div>
+                    <p class="about-results-lead">Un MVP, una automatización con IA, o una web que convierte. No
+                        importa el proyecto, lo construimos con la misma obsesión: que funcione bien y que funcione
+                        rápido.</p>
+                </div>
+
+                <div class="about-results-cards">
+                    <div class="about-results-card reveal-on-scroll">
+                        <div class="about-results-number">4</div>
+                        <div class="about-results-label">Pilares clave</div>
+                        <p class="about-results-text">Velocidad, IA, ownership y simplicidad guían cada decisión que
+                            tomamos.</p>
+                    </div>
+                    <div class="about-results-card about-results-card--featured reveal-on-scroll">
+                        <div class="about-results-number">100%</div>
+                        <div class="about-results-label">De ownership</div>
+                        <p class="about-results-text">Tratamos tu producto y tu código como si fuera nuestro.
+                            Transparencia total.</p>
+                    </div>
+                    <div class="about-results-card reveal-on-scroll">
+                        <div class="about-results-number">24/7</div>
+                        <div class="about-results-label">Disponibilidad</div>
+                        <p class="about-results-text">Operación remota con alta disponibilidad en zonas horarias de
+                            LATAM y US.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Process Section -->
+        <section class="process-section" id="process">
+            <div class="container">
+                <div class="section-header reveal-on-scroll">
+                    <div class="badge-tag">El Método Kodryn</div>
+                    <h2 class="section-title">Construimos como fundadores, no como proveedores</h2>
+                </div>
+
+                <div class="process-path-wrap reveal-on-scroll">
+                    <svg class="process-path-svg" viewBox="0 0 1000 140" preserveAspectRatio="none" aria-hidden="true">
+                        <path d="M 80 120 C 220 120, 220 20, 360 20 S 500 120, 640 120 S 780 20, 920 20"></path>
+                    </svg>
+
+                    <div class="process-step" style="left:8%; top:120px;">
+                        <div class="process-node">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 22V3"></path>
+                                <path d="M4 3h13l-2.5 4L17 11H4"></path>
+                            </svg>
+                        </div>
+                        <div class="process-step-body">
+                            <span class="process-step-ghost">01</span>
+                            <h3>Validar</h3>
+                            <p>Entendemos el problema real de negocio antes de escribir una sola línea de código.</p>
+                        </div>
+                    </div>
+
+                    <div class="process-step" style="left:36%; top:20px;">
+                        <div class="process-node">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="18" y1="20" x2="18" y2="10"></line>
+                                <line x1="12" y1="20" x2="12" y2="4"></line>
+                                <line x1="6" y1="20" x2="6" y2="14"></line>
+                            </svg>
+                        </div>
+                        <div class="process-step-body">
+                            <span class="process-step-ghost">02</span>
+                            <h3>Prototipar</h3>
+                            <p>Con apoyo de IA, construimos versiones tangibles en días, no en meses.</p>
+                        </div>
+                    </div>
+
+                    <div class="process-step" style="left:64%; top:120px;">
+                        <div class="process-node">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="3"></circle>
+                                <path
+                                    d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z">
+                                </path>
+                            </svg>
+                        </div>
+                        <div class="process-step-body">
+                            <span class="process-step-ghost">03</span>
+                            <h3>Construir</h3>
+                            <p>Desarrollo ágil, en sprints cortos, con IA integrada en el flujo de trabajo.</p>
+                        </div>
+                    </div>
+
+                    <div class="process-step" style="left:92%; top:20px;">
+                        <div class="process-node">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path
+                                    d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z">
+                                </path>
+                                <path
+                                    d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z">
+                                </path>
+                                <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path>
+                                <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path>
+                            </svg>
+                        </div>
+                        <div class="process-step-body">
+                            <span class="process-step-ghost">04</span>
+                            <h3>Iterar y escalar</h3>
+                            <p>Lanzamos, medimos, ajustamos. El software vive y mejora con datos reales.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact-section" id="contact">
+            <div class="container contact-container">
+                <div class="contact-info reveal-on-scroll">
+                    <div class="badge-tag contact-badge">Iniciar Proyecto</div>
+                    <h2 class="contact-headline">Construyamos tu<br>futuro digital</h2>
+                    <p class="section-subtitle text-left">Cuéntanos qué estás construyendo. Nosotros nos encargamos de
+                        que deje de ser solo una idea.</p>
+
+                    <div class="contact-details">
+                        <div class="detail-item">
+                            <span class="detail-icon-round">✉️</span>
+                            <a href="mailto:kodryn.labs.ia@gmail.com" class="link">kodryn.labs.ia@gmail.com</a>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-icon-round">🚀</span>
+                            <p class="link">Remoto — LATAM & US</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-form-container reveal-on-scroll">
+                    <form class="contact-form" id="contact-form">
+                        <div class="form-group">
+                            <label for="form-name">Tu nombre</label>
+                            <input type="text" id="form-name" required placeholder="Steve Jobs">
+                        </div>
+                        <div class="form-group">
+                            <label for="form-email">Tu correo</label>
+                            <input type="email" id="form-email" required placeholder="steve@jobs.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="form-company">Nombre de tu negocio</label>
+                            <input type="text" id="form-company" required placeholder="next.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="form-project">¿Qué estás construyendo?</label>
+                            <textarea id="form-project" rows="3" required
+                                placeholder="Un SaaS de automatización para logística integrado con IA..."></textarea>
+                        </div>
+
+                        <button type="submit" class="btn-submit-round">
+                            <span class="btn-submit-icon">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                    <path d="M22 2 11 13"></path>
+                                    <path d="M22 2 15 22 11 13 2 9 22 2Z" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                </svg>
+                            </span>
+                            Enviar por WhatsApp
+                        </button>
+                        <div class="form-status" id="form-status"></div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-brand">
+                <a href="#" class="logo">
+                    <img src="Logo.png" alt="" class="logo-img-footer">
+                </a>
+                <p class="brand-tagline">Made in Ecuador. Built for the world.</p>
+            </div>
+            <div class="footer-links">
+                <div class="link-column">
+                    <h4>Navegación</h4>
+                    <a href="#services">Servicios</a>
+                    <a href="#about">Sobre nosotros</a>
+                    <a href="#process">Método</a>
+                    <a href="#contact">Contacto</a>
+                </div>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <p>&copy; 2026 Kodryn. Todos los derechos reservados. Diseñado para fundadores.</p>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp button (hidden on the Home section, shown from Servicios onward — see app.js) -->
+    <a href="https://wa.me/593981045802" target="_blank" rel="noopener" class="whatsapp-float" id="whatsapp-float"
+        aria-label="Escribinos por WhatsApp">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path
+                d="M17.498 14.382c-.301-.15-1.767-.867-2.04-.966-.273-.101-.473-.15-.673.15-.197.295-.771.964-.944 1.162-.175.195-.349.21-.646.075-.3-.15-1.263-.465-2.403-1.485-.888-.795-1.484-1.77-1.66-2.07-.174-.3-.019-.465.13-.615.136-.135.301-.345.451-.523.146-.181.194-.301.297-.496.1-.21.049-.375-.025-.524-.075-.15-.672-1.62-.922-2.206-.24-.584-.487-.51-.672-.51-.172-.015-.371-.015-.571-.015-.2 0-.523.074-.797.359-.273.3-1.045 1.02-1.045 2.475s1.07 2.865 1.219 3.075c.149.195 2.105 3.195 5.1 4.485.714.3 1.27.48 1.704.629.714.227 1.365.195 1.88.121.574-.089 1.767-.72 2.016-1.415.255-.694.255-1.29.18-1.415-.074-.121-.272-.196-.57-.345M12.05 21.785h-.006a9.826 9.826 0 0 1-4.947-1.352l-.354-.21-3.673.96.98-3.573-.229-.373a9.825 9.825 0 0 1-1.51-5.256c0-5.436 4.428-9.86 9.868-9.86 2.633 0 5.108 1.026 6.965 2.888a9.788 9.788 0 0 1 2.883 6.965c-.003 5.437-4.428 9.86-9.865 9.86M20.463 3.488C18.24 1.263 15.271.036 12.13.036c-6.55 0-11.86 5.309-11.86 11.858 0 2.089.545 4.13 1.583 5.929L.155 24l6.229-1.63a11.877 11.877 0 0 0 5.62 1.428h.007c6.549 0 11.858-5.309 11.858-11.858 0-3.169-1.24-6.148-3.406-8.452" />
+        </svg>
+    </a>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
