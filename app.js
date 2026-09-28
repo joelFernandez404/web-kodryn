@@ -72,56 +72,95 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================================================
-    // MODULE: ABOUT LEAD TEXT SCATTER-ASSEMBLE
-    // Each letter of the About section's lead paragraph starts flung out to
-    // a random offset/rotation and flies into place to assemble the
-    // sentence, once the section actually scrolls into view.
+    // MODULE: MANIFESTO CURSOR LIGHT
+    // A soft light follows the cursor across the manifesto section. It eases
+    // toward the pointer (lerp) so it trails like a lamp instead of snapping;
+    // the rAF loop only runs while the light is still catching up. Under
+    // prefers-reduced-motion it jumps straight to the pointer. Pointer
+    // devices only.
     // ==========================================================================
-    const aboutLead = document.querySelector('.about-results-lead');
-    if (aboutLead) {
-        function wrapLetters(node) {
-            if (node.nodeType === Node.TEXT_NODE) {
-                const text = node.textContent;
-                if (!text.trim()) return;
+    const manifestoSection = document.querySelector('.manifesto-section');
+    const manifestoGlow = manifestoSection && manifestoSection.querySelector('.manifesto-glow');
+    if (manifestoGlow && window.matchMedia('(hover: hover)').matches) {
+        const calm = window.matchMedia('(prefers-reduced-motion: reduce)');
+        const target = { x: 0, y: 0 };
+        const pos = { x: 0, y: 0 };
+        let rafId = 0;
 
-                const fragment = document.createDocumentFragment();
-                Array.from(text).forEach(ch => {
-                    if (ch.trim()) {
-                        const span = document.createElement('span');
-                        span.className = 'scatter-letter';
-                        span.textContent = ch;
-                        span.style.setProperty('--lx', `${(Math.random() * 240 - 120).toFixed(0)}px`);
-                        span.style.setProperty('--ly', `${(Math.random() * 200 - 100).toFixed(0)}px`);
-                        span.style.setProperty('--lr', `${(Math.random() * 70 - 35).toFixed(0)}deg`);
-                        fragment.appendChild(span);
-                    } else {
-                        fragment.appendChild(document.createTextNode(ch));
-                    }
-                });
-                node.parentNode.replaceChild(fragment, node);
-            } else if (node.nodeType === Node.ELEMENT_NODE) {
-                Array.from(node.childNodes).forEach(wrapLetters);
+        const place = () => {
+            manifestoGlow.style.transform = `translate3d(${pos.x}px, ${pos.y}px, 0)`;
+        };
+
+        const follow = () => {
+            pos.x += (target.x - pos.x) * 0.12;
+            pos.y += (target.y - pos.y) * 0.12;
+            place();
+            const settled = Math.abs(target.x - pos.x) < 0.5 && Math.abs(target.y - pos.y) < 0.5;
+            rafId = settled ? 0 : requestAnimationFrame(follow);
+        };
+
+        const aim = (e, snap) => {
+            const r = manifestoSection.getBoundingClientRect();
+            target.x = e.clientX - r.left;
+            target.y = e.clientY - r.top;
+            if (snap || calm.matches) {
+                pos.x = target.x;
+                pos.y = target.y;
+                place();
+            } else if (!rafId) {
+                rafId = requestAnimationFrame(follow);
             }
+        };
+
+        manifestoSection.addEventListener('pointerenter', (e) => {
+            aim(e, true); // appear right under the cursor, then trail it
+            manifestoSection.classList.add('is-lit');
+        });
+        manifestoSection.addEventListener('pointermove', (e) => aim(e, false));
+        manifestoSection.addEventListener('pointerleave', () => manifestoSection.classList.remove('is-lit'));
+    }
+
+    // ==========================================================================
+    // MODULE: FLIP CARDS (projects + services)
+    // Each card flips to show its details. Hover flips it through CSS on
+    // pointer devices; a click or tap anywhere on the card (or Enter on its
+    // arrow button) toggles .is-flipped, pinning it turned. Only the visible
+    // face is exposed to assistive tech and the keyboard.
+    // ==========================================================================
+    const canHover = window.matchMedia('(hover: hover)');
+    document.querySelectorAll('.project-card, .service-item').forEach((card) => {
+        const front = card.querySelector('.project-front, .service-front');
+        const back = card.querySelector('.project-back, .service-back');
+        const openBtn = front.querySelector('.project-toggle, .service-toggle');
+        const backBtn = back.querySelector('.project-toggle, .service-toggle');
+
+        function setFlipped(flipped, moveFocus) {
+            card.classList.toggle('is-flipped', flipped);
+            openBtn.setAttribute('aria-expanded', flipped ? 'true' : 'false');
+            front.setAttribute('aria-hidden', flipped ? 'true' : 'false');
+            back.setAttribute('aria-hidden', flipped ? 'false' : 'true');
+            front.inert = flipped;
+            back.inert = !flipped;
+            if (moveFocus) (flipped ? backBtn : openBtn).focus({ preventScroll: true });
         }
 
-        wrapLetters(aboutLead);
-        const leadLetters = aboutLead.querySelectorAll('.scatter-letter');
+        card.addEventListener('click', (e) => {
+            const viaKeyboard = e.detail === 0; // Enter/Space on a button fires a detail-0 click
+            // A click pins the card on its back (it stays turned after the
+            // pointer leaves); the next click turns it to the front. When that
+            // happens under the pointer, mute the hover until it leaves so the
+            // card really shows its front. Touch screens can leave a sticky
+            // :hover after a tap, so only real pointer devices count it.
+            const flip = !card.classList.contains('is-flipped');
+            const hovered = canHover.matches && card.matches(':hover');
+            card.classList.toggle('hover-off', !flip && hovered);
+            setFlipped(flip, viaKeyboard);
+        });
 
-        const aboutLeadObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    leadLetters.forEach((letter, index) => {
-                        setTimeout(() => {
-                            letter.classList.add('revealed');
-                        }, index * 28);
-                    });
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.3, rootMargin: '0px 0px -60px 0px' });
+        card.addEventListener('mouseleave', () => card.classList.remove('hover-off'));
 
-        aboutLeadObserver.observe(aboutLead);
-    }
+        setFlipped(false, false);
+    });
 
     // ==========================================================================
     // MODULE: MOBILE MENU
@@ -220,18 +259,30 @@ document.addEventListener('DOMContentLoaded', () => {
     const formStatus = document.getElementById('form-status');
     const WHATSAPP_NUMBER = '593981045802'; // +593 98 104 5802, digits only for wa.me
 
+    // Typing in a flagged field clears its error state.
+    contactForm.addEventListener('input', (e) => e.target.removeAttribute('aria-invalid'));
+
     contactForm.addEventListener('submit', (e) => {
         e.preventDefault();
 
-        const name = document.getElementById('form-name').value.trim();
-        const email = document.getElementById('form-email').value.trim();
-        const company = document.getElementById('form-company').value.trim();
-        const project = document.getElementById('form-project').value.trim();
+        const fields = ['form-name', 'form-email', 'form-company', 'form-project'].map((id) => document.getElementById(id));
+        const [name, email, company, project] = fields.map((field) => field.value.trim());
 
-        if (!name || !email || !company || !project) {
+        // Inline validation: flag empty fields (and a malformed email) with
+        // aria-invalid, which the CSS turns into a red underline.
+        const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        fields.forEach((field) => {
+            const invalid = !field.value.trim() || (field.id === 'form-email' && !emailValid);
+            field.setAttribute('aria-invalid', invalid ? 'true' : 'false');
+        });
+
+        if (!name || !email || !company || !project || !emailValid) {
             formStatus.className = 'form-status error';
-            formStatus.textContent = 'Completá todos los campos para generar el mensaje de WhatsApp.';
+            formStatus.textContent = !emailValid && email
+                ? 'Revisa tu correo, parece que tiene un error.'
+                : 'Completa todos los campos para generar el mensaje de WhatsApp.';
             formStatus.style.display = 'block';
+            fields.find((field) => field.getAttribute('aria-invalid') === 'true').focus();
             return;
         }
 

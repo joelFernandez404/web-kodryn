@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:ital,wght@1,500&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <script src="image-slot.js"></script>
@@ -28,7 +28,7 @@
             <nav class="nav-menu" id="nav-menu">
                 <div class="nav-hover-bg" id="nav-hover-bg"></div>
                 <a href="#services" class="nav-link">Servicios</a>
-                <a href="#about" class="nav-link">Sobre nosotros</a>
+                <a href="#products" class="nav-link">Productos</a>
                 <a href="#process" class="nav-link">Método</a>
                 <a href="#contact" class="nav-link">Contacto</a>
             </nav>
@@ -210,190 +210,362 @@
             </div>
         </section>
 
-        <!-- Services Section -->
+        <!-- Services Section: four compact flip cards. Front: looping line
+             illustration (CSS keyframes, static under reduced motion), title
+             and one short line. Hover, click/tap or Enter on the arrow turns
+             the card to its back: full description and 4 deliverables (same
+             flip logic as the project cards, see MODULE: FLIP CARDS in
+             app.js). One shared CTA at the bottom. -->
         <section class="services-section" id="services">
             <div class="container">
-                <div class="section-header reveal-on-scroll">
-                    <div class="badge-tag">Servicios</div>
-                    <h2 class="section-title">Lo que construimos</h2>
-                    <p class="section-subtitle"></p>
-                </div>
+                <h2 class="services-title reveal-on-scroll">Lo que <em>construimos</em></h2>
 
-                <div class="service-carousel" id="service-carousel">
-                    <div class="service-carousel-stage" id="service-carousel-stage">
-                        <!-- Card 1: Automatizaciones & IA -->
-                        <div class="service-card service-card--wide reveal-on-scroll" style="--glow:255,138,0">
-                            <div class="service-card-wide-intro">
-                                <div class="service-card-head">
-                                    <div class="service-icon-box">
-                                        <svg class="service-icon" width="26" height="26" viewBox="0 0 24 24" fill="none"
-                                            stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                                            stroke-linejoin="round">
-                                            <rect x="4" y="4" width="16" height="16" rx="2" />
-                                            <rect x="9" y="9" width="6" height="6" stroke-width="1" />
-                                            <line x1="9" y1="1" x2="9" y2="4"></line>
-                                            <line x1="15" y1="1" x2="15" y2="4"></line>
-                                            <line x1="9" y1="20" x2="9" y2="23"></line>
-                                            <line x1="15" y1="20" x2="15" y2="23"></line>
-                                            <line x1="20" y1="9" x2="23" y2="9"></line>
-                                            <line x1="20" y1="15" x2="23" y2="15"></line>
-                                            <line x1="1" y1="9" x2="4" y2="9"></line>
-                                            <line x1="1" y1="15" x2="4" y2="15"></line>
-                                        </svg>
-                                    </div>
+                <div class="services-grid">
+                    <!-- Automatizaciones & IA -->
+                    <article class="service-item reveal-on-scroll">
+                        <div class="service-inner">
+                            <div class="service-face service-front">
+                                <div class="service-art" aria-hidden="true">
+                                    <svg class="svc-art svc-art--auto" viewBox="0 0 160 120">
+                                        <path class="flow" d="M10 42 H52" />
+                                        <path class="flow" d="M10 78 H52" />
+                                        <path class="flow flow--out" d="M108 60 H150" />
+                                        <circle class="packet dot" cx="10" cy="42" r="3" />
+                                        <circle class="packet packet--2 dot" cx="10" cy="78" r="3" />
+                                        <circle class="packet packet--out dot acc-fill" cx="108" cy="60" r="3" />
+                                        <path d="M66 30 v-8 M80 30 v-8 M94 30 v-8 M66 90 v8 M80 90 v8 M94 90 v8" />
+                                        <rect x="52" y="30" width="56" height="60" rx="10" />
+                                        <rect class="core acc" x="67" y="45" width="26" height="30" rx="5" />
+                                        <path class="core-spark acc" d="M80 52 l1.6 4.4 4.4 1.6 -4.4 1.6 -1.6 4.4 -1.6 -4.4 -4.4 -1.6 4.4 -1.6z" />
+                                    </svg>
                                 </div>
-                                <h3 class="service-card-title">Automatizaciones & IA</h3>
-                                <p class="service-card-text">Conectamos IA a tu día a día para que las tareas
-                                    repetitivas dejen de ser tu problema.</p>
-                                <a href="#contact" class="service-card-cta">Automatiza tu negocio <span class="cta-arrow">→</span></a>
+                                <h3 class="service-title">Automatizaciones & IA</h3>
+                                <p class="service-short">IA que hace las tareas repetitivas por ti.</p>
+                                <button class="service-toggle" type="button" aria-expanded="false" aria-label="Ver detalles de Automatizaciones & IA">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                        <path d="M7 17 17 7M8 7h9v9" />
+                                    </svg>
+                                </button>
                             </div>
-                            <div class="service-card-features service-card-features--wide">
-                                <h4 class="service-feature-label">Incluye</h4>
-                                <ul class="service-feature-list service-feature-list--cols">
-                                    <li>Diagnóstico de procesos repetitivos y cuellos de botella</li>
-                                    <li>Chatbots y agentes IA conectados a WhatsApp, correo y CRM</li>
-                                    <li>Automatización de flujos (n8n, Make, Zapier)</li>
-                                    <li>Integración con tus herramientas actuales (Sheets, Notion, ERPs)</li>
+                            <div class="service-face service-back" aria-hidden="true">
+                                <h3 class="service-back-title">Automatizaciones & IA</h3>
+                                <p class="service-text">Conectamos IA a tu día a día para que las tareas repetitivas dejen de ser tu problema.</p>
+                                <ul class="service-list">
+                                    <li>Chatbots y agentes IA en WhatsApp, correo y CRM</li>
+                                    <li>Flujos automáticos con n8n, Make o Zapier</li>
+                                    <li>Integración con las herramientas que ya usas</li>
                                     <li>Soporte y ajustes después de la entrega</li>
                                 </ul>
+                                <button class="service-toggle service-toggle--back" type="button" aria-label="Volver a Automatizaciones & IA">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                        <path d="M17 7 7 17M16 17H7V8" />
+                                    </svg>
+                                </button>
                             </div>
                         </div>
+                    </article>
 
-                        <!-- Card 2: Software & MVPs -->
-                        <div class="service-card service-card--wide reveal-on-scroll" style="--glow:59,130,246">
-                            <div class="service-card-wide-intro">
-                                <div class="service-card-head">
-                                    <div class="service-icon-box">
-                                        <svg class="service-icon" width="26" height="26" viewBox="0 0 24 24" fill="none"
-                                            stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                                            stroke-linejoin="round">
-                                            <polyline points="16 18 22 12 16 6"></polyline>
-                                            <polyline points="8 6 2 12 8 18"></polyline>
-                                        </svg>
-                                    </div>
+                    <!-- Software & MVPs -->
+                    <article class="service-item reveal-on-scroll">
+                        <div class="service-inner">
+                            <div class="service-face service-front">
+                                <div class="service-art" aria-hidden="true">
+                                    <svg class="svc-art svc-art--code" viewBox="0 0 160 120">
+                                        <rect x="14" y="12" width="132" height="96" rx="12" />
+                                        <path d="M14 30 H146" />
+                                        <circle class="dot" cx="27" cy="21" r="2.5" />
+                                        <circle class="dot" cx="36" cy="21" r="2.5" />
+                                        <circle class="dot" cx="45" cy="21" r="2.5" />
+                                        <path class="code-line acc" pathLength="1" d="M30 46 H74" />
+                                        <path class="code-line" pathLength="1" d="M42 60 H118" />
+                                        <path class="code-line" pathLength="1" d="M42 74 H96" />
+                                        <path class="code-line acc" pathLength="1" d="M30 88 H62" />
+                                        <path class="caret acc" d="M70 83 V93" />
+                                    </svg>
                                 </div>
-                                <h3 class="service-card-title">Software & MVPs</h3>
-                                <p class="service-card-text">Ideas convertidas en producto funcional en semanas. Un
-                                    solo equipo para arquitectura, base de datos e interfaz.</p>
-                                <a href="#contact" class="service-card-cta">Cuéntanos tu idea <span class="cta-arrow">→</span></a>
+                                <h3 class="service-title">Software & MVPs</h3>
+                                <p class="service-short">Tu idea convertida en producto en semanas.</p>
+                                <button class="service-toggle" type="button" aria-expanded="false" aria-label="Ver detalles de Software & MVPs">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                        <path d="M7 17 17 7M8 7h9v9" />
+                                    </svg>
+                                </button>
                             </div>
-                            <div class="service-card-features service-card-features--wide">
-                                <h4 class="service-feature-label">Incluye</h4>
-                                <ul class="service-feature-list service-feature-list--cols">
-                                    <li>Arquitectura y stack a medida (web, móvil o ambos)</li>
+                            <div class="service-face service-back" aria-hidden="true">
+                                <h3 class="service-back-title">Software & MVPs</h3>
+                                <p class="service-text">Ideas convertidas en producto funcional en semanas. Un solo equipo para arquitectura, base de datos e interfaz.</p>
+                                <ul class="service-list">
+                                    <li>Stack a medida, web, móvil o ambos</li>
                                     <li>Diseño UI/UX enfocado en conversión</li>
-                                    <li>Backend, base de datos y APIs listas para escalar</li>
                                     <li>Entrega funcional en semanas, no meses</li>
-                                    <li>Iteración continua según el feedback de tus usuarios</li>
+                                    <li>Backend, base de datos y APIs listas para escalar</li>
                                 </ul>
+                                <button class="service-toggle service-toggle--back" type="button" aria-label="Volver a Software & MVPs">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                        <path d="M17 7 7 17M16 17H7V8" />
+                                    </svg>
+                                </button>
                             </div>
                         </div>
+                    </article>
 
-                        <!-- Card 3: Páginas Web -->
-                        <div class="service-card service-card--wide reveal-on-scroll" style="--glow:0,196,255">
-                            <div class="service-card-wide-intro">
-                                <div class="service-card-head">
-                                    <div class="service-icon-box">
-                                        <svg class="service-icon" width="26" height="26" viewBox="0 0 24 24" fill="none"
-                                            stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                                            stroke-linejoin="round">
-                                            <rect x="2" y="3" width="20" height="18" rx="2" />
-                                            <path d="M2 8h20" />
-                                            <circle cx="5" cy="5.5" r="1" fill="currentColor" stroke="none" />
-                                            <circle cx="8" cy="5.5" r="1" fill="currentColor" stroke="none" />
-                                            <circle cx="11" cy="5.5" r="1" fill="currentColor" stroke="none" />
-                                            <path d="M6 12h12M6 16h8" />
-                                        </svg>
-                                    </div>
+                    <!-- Páginas Web -->
+                    <article class="service-item reveal-on-scroll">
+                        <div class="service-inner">
+                            <div class="service-face service-front">
+                                <div class="service-art" aria-hidden="true">
+                                    <svg class="svc-art svc-art--web" viewBox="0 0 160 120">
+                                        <rect x="12" y="12" width="136" height="96" rx="12" />
+                                        <path d="M12 28 H148" />
+                                        <circle class="dot" cx="24" cy="20" r="2.2" />
+                                        <circle class="dot" cx="32" cy="20" r="2.2" />
+                                        <rect class="blk blk-1 acc" x="24" y="40" width="62" height="8" rx="3" />
+                                        <rect class="blk blk-2" x="24" y="54" width="46" height="5" rx="2.5" />
+                                        <rect class="blk blk-3 acc-fill" x="24" y="68" width="32" height="13" rx="6.5" />
+                                        <rect class="blk blk-4" x="98" y="40" width="38" height="44" rx="6" />
+                                        <path class="blk blk-4" d="M102 78 l10 -12 8 8 6 -6 7 10" />
+                                        <path class="pointer" d="M0 0 V15 L4 11 L7.5 17.5 L10 16.3 L6.8 10 H12 Z" />
+                                    </svg>
                                 </div>
-                                <h3 class="service-card-title">Páginas Web</h3>
-                                <p class="service-card-text">Landings de conversión, SEO de clase mundial y velocidad
-                                    de carga instantánea.</p>
-                                <a href="#contact" class="service-card-cta">Quiero mi web <span class="cta-arrow">→</span></a>
+                                <h3 class="service-title">Páginas Web</h3>
+                                <p class="service-short">Webs rápidas que convierten visitas en clientes.</p>
+                                <button class="service-toggle" type="button" aria-expanded="false" aria-label="Ver detalles de Páginas Web">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                        <path d="M7 17 17 7M8 7h9v9" />
+                                    </svg>
+                                </button>
                             </div>
-                            <div class="service-card-features service-card-features--wide">
-                                <h4 class="service-feature-label">Incluye</h4>
-                                <ul class="service-feature-list service-feature-list--cols">
-                                    <li>Landing pages optimizadas para conversión</li>
-                                    <li>SEO técnico y on-page de clase mundial</li>
-                                    <li>Velocidad de carga y Core Web Vitals optimizados</li>
-                                    <li>Diseño responsive y accesible en todos los dispositivos</li>
-                                    <li>Integración con analítica y formularios de contacto</li>
+                            <div class="service-face service-back" aria-hidden="true">
+                                <h3 class="service-back-title">Páginas Web</h3>
+                                <p class="service-text">Landings de conversión, SEO técnico y carga instantánea para que tu web venda por ti.</p>
+                                <ul class="service-list">
+                                    <li>Landings optimizadas para conversión</li>
+                                    <li>SEO técnico y on-page</li>
+                                    <li>Diseño responsive y Core Web Vitals al día</li>
+                                    <li>Analítica y formularios de contacto conectados</li>
                                 </ul>
+                                <button class="service-toggle service-toggle--back" type="button" aria-label="Volver a Páginas Web">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                        <path d="M17 7 7 17M16 17H7V8" />
+                                    </svg>
+                                </button>
                             </div>
                         </div>
+                    </article>
 
-                        <!-- Card 4: Capacitación IA (wide) -->
-                        <div class="service-card service-card--wide reveal-on-scroll" style="--glow:168,85,247">
-                            <div class="service-card-wide-intro">
-                                <div class="service-card-head">
-                                    <div class="service-icon-box">
-                                        <svg class="service-icon" width="26" height="26" viewBox="0 0 24 24" fill="none"
-                                            stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                                            stroke-linejoin="round">
-                                            <path d="M22 10L12 5 2 10l10 5 10-5z"></path>
-                                            <path d="M6 12v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"></path>
-                                            <path d="M22 10v6"></path>
-                                        </svg>
-                                    </div>
+                    <!-- Capacitación IA -->
+                    <article class="service-item reveal-on-scroll">
+                        <div class="service-inner">
+                            <div class="service-face service-front">
+                                <div class="service-art" aria-hidden="true">
+                                    <svg class="svc-art svc-art--learn" viewBox="0 0 160 120">
+                                        <g class="cap">
+                                            <path d="M80 30 L130 50 L80 70 L30 50 Z" />
+                                            <path d="M52 61 V78 C52 88 108 88 108 78 V61" />
+                                            <g class="tassel">
+                                                <path d="M80 50 L118 60 V80" />
+                                                <circle class="acc-fill" cx="118" cy="84" r="3.5" />
+                                            </g>
+                                        </g>
+                                        <path class="spark spark-1 acc" d="M34 20 l2 5.5 5.5 2 -5.5 2 -2 5.5 -2 -5.5 -5.5 -2 5.5 -2z" />
+                                        <path class="spark spark-2" d="M136 18 l1.4 3.8 3.8 1.4 -3.8 1.4 -1.4 3.8 -1.4 -3.8 -3.8 -1.4 3.8 -1.4z" />
+                                        <path class="spark spark-3 acc" d="M142 92 l1.6 4.4 4.4 1.6 -4.4 1.6 -1.6 4.4 -1.6 -4.4 -4.4 -1.6 4.4 -1.6z" />
+                                        <path class="spark spark-4" d="M22 86 l1.2 3.2 3.2 1.2 -3.2 1.2 -1.2 3.2 -1.2 -3.2 -3.2 -1.2 3.2 -1.2z" />
+                                    </svg>
                                 </div>
-                                <h3 class="service-card-title">Capacitación IA para equipos</h3>
-                                <p class="service-card-text">Enseñamos a tu equipo a usar IA en su día a día:
-                                    herramientas, prompting y automatización aplicados a casos reales de tu
-                                    negocio.</p>
-                                <a href="#contact" class="service-card-cta">Agenda una capacitación <span class="cta-arrow">→</span></a>
+                                <h3 class="service-title">Capacitación IA para equipos</h3>
+                                <p class="service-short">Tu equipo usando IA en su día a día.</p>
+                                <button class="service-toggle" type="button" aria-expanded="false" aria-label="Ver detalles de Capacitación IA para equipos">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                        <path d="M7 17 17 7M8 7h9v9" />
+                                    </svg>
+                                </button>
                             </div>
-                            <div class="service-card-features service-card-features--wide">
-                                <h4 class="service-feature-label">Incluye</h4>
-                                <ul class="service-feature-list service-feature-list--cols">
+                            <div class="service-face service-back" aria-hidden="true">
+                                <h3 class="service-back-title">Capacitación IA para equipos</h3>
+                                <p class="service-text">Enseñamos a tu equipo a usar IA en su día a día, con casos reales de tu negocio.</p>
+                                <ul class="service-list">
                                     <li>Talleres a medida según el nivel de tu equipo</li>
-                                    <li>Casos de uso reales aplicados a tu negocio</li>
                                     <li>Prompting avanzado y uso de agentes IA</li>
-                                    <li>Automatización de tareas con IA generativa</li>
                                     <li>Modalidad presencial o remota</li>
-                                    <li>Grupos reducidos para asegurar el aprendizaje</li>
                                     <li>Material de apoyo y plantillas reutilizables</li>
-                                    <li>Seguimiento y soporte después del taller</li>
                                 </ul>
+                                <button class="service-toggle service-toggle--back" type="button" aria-label="Volver a Capacitación IA para equipos">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                        <path d="M17 7 7 17M16 17H7V8" />
+                                    </svg>
+                                </button>
                             </div>
                         </div>
-                    </div>
+                    </article>
                 </div>
+
+                <p class="services-cta reveal-on-scroll">¿No sabes cuál necesitas?
+                    <a href="#contact">Hablemos <span class="cta-arrow" aria-hidden="true">→</span></a>
+                </p>
             </div>
         </section>
 
-        <!-- About Us Section: centered lead paragraph over a row of stat
-             cards, the middle one elevated — modeled on a reference
-             "results" section, with faint concentric rings behind the cards. -->
-        <section class="about-results reveal-on-scroll" id="about">
-            <div class="about-results-rings" aria-hidden="true"></div>
+        <!-- Products Section: grid of shipped projects. Each card flips (hover
+             on pointer devices, click/tap or Enter anywhere) to show the
+             project details on its back (see MODULE: PROJECT CARDS in app.js).
+             SCREENSHOTS: drop a real capture of each project next to
+             index.html with the file name used in its <img> (proyecto-leal.jpg,
+             proyecto-glow.jpg, proyecto-kopiloto.jpg; about 1600x1000). Until
+             the file exists the img removes itself and the typographic
+             poster underneath shows instead.
+             COPY: the back-side descriptions are drafts; confirm them with
+             each client before publishing. -->
+        <section class="products-section" id="products">
             <div class="container">
-                <div class="about-results-intro">
-                    <div class="badge-tag about-results-badge">Sobre Nosotros</div>
-                    <p class="about-results-lead">Un MVP, una automatización con IA, o una web que convierte. No
-                        importa el proyecto, lo construimos con la misma obsesión: que funcione bien y que funcione
-                        rápido.</p>
-                </div>
+                <h2 class="projects-title reveal-on-scroll">Proyectos construidos con <em>Kodryn.</em></h2>
 
-                <div class="about-results-cards">
-                    <div class="about-results-card reveal-on-scroll">
-                        <div class="about-results-number">4</div>
-                        <div class="about-results-label">Pilares clave</div>
-                        <p class="about-results-text">Velocidad, IA, ownership y simplicidad guían cada decisión que
-                            tomamos.</p>
-                    </div>
-                    <div class="about-results-card about-results-card--featured reveal-on-scroll">
-                        <div class="about-results-number">100%</div>
-                        <div class="about-results-label">De ownership</div>
-                        <p class="about-results-text">Tratamos tu producto y tu código como si fuera nuestro.
-                            Transparencia total.</p>
-                    </div>
-                    <div class="about-results-card reveal-on-scroll">
-                        <div class="about-results-number">24/7</div>
-                        <div class="about-results-label">Disponibilidad</div>
-                        <p class="about-results-text">Operación remota con alta disponibilidad en zonas horarias de
-                            LATAM y US.</p>
-                    </div>
+                <div class="projects-grid">
+                    <!-- Project 1 -->
+                    <article class="project-card reveal-on-scroll">
+                        <div class="project-inner">
+                            <div class="project-face project-front">
+                                <div class="project-media">
+                                    <div class="project-poster" aria-hidden="true">
+                                        <span class="project-poster-name">Leal Consultores</span>
+                                    </div>
+                                    <img src="proyecto-leal.jpg" alt="Sitio web de Leal Consultores" loading="lazy"
+                                        decoding="async" onerror="this.remove()">
+                                </div>
+                                <div class="project-footer">
+                                    <div>
+                                        <h3 class="project-name">Leal Consultores</h3>
+                                        <p class="project-type">Página web</p>
+                                    </div>
+                                    <button class="project-toggle" type="button" aria-expanded="false"
+                                        aria-label="Ver detalles de Leal Consultores">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                            <path d="M7 17 17 7M8 7h9v9" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="project-face project-back" aria-hidden="true">
+                                <p class="project-type">Página web</p>
+                                <h3 class="project-back-title">Web corporativa para Leal Consultores</h3>
+                                <p class="project-desc">Un sitio que presenta los servicios de la firma con claridad y
+                                    convierte cada visita en una consulta.</p>
+                                <ul class="project-list">
+                                    <li>Diseño web a medida y responsive</li>
+                                    <li>SEO técnico y on-page</li>
+                                    <li>Formulario de contacto conectado a correo y WhatsApp</li>
+                                </ul>
+                                <button class="project-toggle project-toggle--back" type="button"
+                                    aria-label="Volver a la portada de Leal Consultores">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                        <path d="M17 7 7 17M16 17H7V8" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Project 2 -->
+                    <article class="project-card reveal-on-scroll">
+                        <div class="project-inner">
+                            <div class="project-face project-front">
+                                <div class="project-media">
+                                    <div class="project-poster" aria-hidden="true">
+                                        <span class="project-poster-name">Glow by SE</span>
+                                    </div>
+                                    <img src="proyecto-glow.jpg" alt="Tienda online de Glow by SE" loading="lazy"
+                                        decoding="async" onerror="this.remove()">
+                                </div>
+                                <div class="project-footer">
+                                    <div>
+                                        <h3 class="project-name">Glow by SE</h3>
+                                        <p class="project-type">E-commerce</p>
+                                    </div>
+                                    <button class="project-toggle" type="button" aria-expanded="false"
+                                        aria-label="Ver detalles de Glow by SE">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                            <path d="M7 17 17 7M8 7h9v9" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="project-face project-back" aria-hidden="true">
+                                <p class="project-type">E-commerce</p>
+                                <h3 class="project-back-title">Tienda online para Glow by SE</h3>
+                                <p class="project-desc">Catálogo, carrito y pagos en línea para una marca de belleza,
+                                    lista para vender desde el primer día.</p>
+                                <ul class="project-list">
+                                    <li>Catálogo de productos con variantes</li>
+                                    <li>Checkout y pasarela de pagos</li>
+                                    <li>Gestión de pedidos e inventario</li>
+                                </ul>
+                                <button class="project-toggle project-toggle--back" type="button"
+                                    aria-label="Volver a la portada de Glow by SE">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                        <path d="M17 7 7 17M16 17H7V8" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Project 3 (full width) -->
+                    <article class="project-card project-card--wide reveal-on-scroll">
+                        <div class="project-inner">
+                            <div class="project-face project-front">
+                                <div class="project-media">
+                                    <div class="project-poster" aria-hidden="true">
+                                        <span class="project-poster-name">Kopiloto</span>
+                                    </div>
+                                    <img src="proyecto-kopiloto.jpg" alt="Automatización de matching de fondos para Kopiloto"
+                                        loading="lazy" decoding="async" onerror="this.remove()">
+                                </div>
+                                <div class="project-footer">
+                                    <div>
+                                        <h3 class="project-name">Kopiloto</h3>
+                                        <p class="project-type">Automatización IA</p>
+                                    </div>
+                                    <button class="project-toggle" type="button" aria-expanded="false"
+                                        aria-label="Ver detalles de Kopiloto">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                            <path d="M7 17 17 7M8 7h9v9" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="project-face project-back" aria-hidden="true">
+                                <p class="project-type">Automatización IA</p>
+                                <h3 class="project-back-title">Matching de fondos para Kopiloto</h3>
+                                <p class="project-desc">Un flujo automático que cruza el perfil de cada emprendimiento con
+                                    los fondos y convocatorias disponibles, y sugiere los más afines.</p>
+                                <ul class="project-list">
+                                    <li>Carga automática de perfiles y convocatorias</li>
+                                    <li>Motor de matching con IA</li>
+                                    <li>Reportes para el equipo de Kopiloto</li>
+                                </ul>
+                                <button class="project-toggle project-toggle--back" type="button"
+                                    aria-label="Volver a la portada de Kopiloto">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                        <path d="M17 7 7 17M16 17H7V8" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
                 </div>
             </div>
         </section>
@@ -483,58 +655,98 @@
             </div>
         </section>
 
-        <!-- Contact Section -->
+        <!-- Manifesto Section: full-screen kinetic statement before the
+             contact form. Oversized centred type with inline photo capsules;
+             each line rises in with a stagger when the title scrolls into
+             view (reuses .reveal-on-scroll -> .active from app.js). -->
+        <section class="manifesto-section" aria-labelledby="manifesto-title">
+            <div class="manifesto-glow" aria-hidden="true"></div>
+            <div class="container">
+                <h2 class="manifesto-title reveal-on-scroll" id="manifesto-title"
+                    aria-label="Intelligent Solutions Powered by AI">
+                    <span class="manifesto-line" aria-hidden="true">
+                        Intelligent
+                        <img class="manifesto-pill" src="manifesto-tech.jpg" alt="" width="720" height="320"
+                            loading="lazy" decoding="async">
+                    </span>
+                    <span class="manifesto-line" aria-hidden="true">
+                        <em class="manifesto-accent">Solutions</em>
+                    </span>
+                    <span class="manifesto-line" aria-hidden="true">
+                        <svg class="manifesto-spark" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path d="M12 0c.6 6.6 5.4 11.4 12 12-6.6.6-11.4 5.4-12 12-.6-6.6-5.4-11.4-12-12 6.6-.6 11.4-5.4 12-12z" />
+                        </svg>
+                        Powered by
+                        <img class="manifesto-pill" src="manifesto-work.jpg" alt="" width="720" height="320"
+                            loading="lazy" decoding="async">
+                    </span>
+                    <span class="manifesto-line" aria-hidden="true">
+                        <span class="manifesto-ai">AI.</span>
+                        <svg class="manifesto-bolt" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z" />
+                        </svg>
+                    </span>
+                </h2>
+            </div>
+        </section>
+
+        <!-- Contact Section: headline + direct contact lines on the left, a
+             minimal line-input form on the right. Submitting builds a
+             pre-filled WhatsApp message (see MODULE: CONTACT FORM in app.js). -->
         <section class="contact-section" id="contact">
             <div class="container contact-container">
                 <div class="contact-info reveal-on-scroll">
-                    <div class="badge-tag contact-badge">Iniciar Proyecto</div>
-                    <h2 class="contact-headline">Construyamos tu<br>futuro digital</h2>
-                    <p class="section-subtitle text-left">Cuéntanos qué estás construyendo. Nosotros nos encargamos de
-                        que deje de ser solo una idea.</p>
+                    <h2 class="contact-headline">Construyamos tu futuro digital</h2>
+                    <p class="contact-subtitle">Cuéntanos qué estás construyendo. Nosotros nos encargamos de que deje
+                        de ser solo una idea.</p>
 
-                    <div class="contact-details">
+                    <dl class="contact-details">
                         <div class="detail-item">
-                            <span class="detail-icon-round">✉️</span>
-                            <a href="mailto:kodryn.labs.ia@gmail.com" class="link">kodryn.labs.ia@gmail.com</a>
+                            <dt>Correo</dt>
+                            <dd><a href="mailto:kodryn.labs.ia@gmail.com">kodryn.labs.ia@gmail.com</a></dd>
                         </div>
                         <div class="detail-item">
-                            <span class="detail-icon-round">🚀</span>
-                            <p class="link">Remoto — LATAM & US</p>
+                            <dt>WhatsApp</dt>
+                            <dd><a href="https://wa.me/593981045802" target="_blank" rel="noopener">+593 98 104 5802</a></dd>
                         </div>
-                    </div>
+                        <div class="detail-item">
+                            <dt>Modalidad</dt>
+                            <dd>Remoto, LATAM y US</dd>
+                        </div>
+                    </dl>
                 </div>
 
                 <div class="contact-form-container reveal-on-scroll">
-                    <form class="contact-form" id="contact-form">
-                        <div class="form-group">
-                            <label for="form-name">Tu nombre</label>
-                            <input type="text" id="form-name" required placeholder="Steve Jobs">
-                        </div>
-                        <div class="form-group">
-                            <label for="form-email">Tu correo</label>
-                            <input type="email" id="form-email" required placeholder="steve@jobs.com">
+                    <form class="contact-form" id="contact-form" novalidate>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="form-name">Tu nombre</label>
+                                <input type="text" id="form-name" name="name" autocomplete="name" required
+                                    placeholder="María Andrade">
+                            </div>
+                            <div class="form-group">
+                                <label for="form-email">Tu correo</label>
+                                <input type="email" id="form-email" name="email" autocomplete="email" required
+                                    placeholder="maria@tuempresa.com">
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="form-company">Nombre de tu negocio</label>
-                            <input type="text" id="form-company" required placeholder="next.com">
+                            <input type="text" id="form-company" name="company" autocomplete="organization" required
+                                placeholder="Tu empresa">
                         </div>
                         <div class="form-group">
                             <label for="form-project">¿Qué estás construyendo?</label>
-                            <textarea id="form-project" rows="3" required
+                            <textarea id="form-project" name="project" rows="3" required
                                 placeholder="Un SaaS de automatización para logística integrado con IA..."></textarea>
                         </div>
 
-                        <button type="submit" class="btn-submit-round">
-                            <span class="btn-submit-icon">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                                    <path d="M22 2 11 13"></path>
-                                    <path d="M22 2 15 22 11 13 2 9 22 2Z" fill="none" stroke="currentColor"
-                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                                </svg>
-                            </span>
-                            Enviar por WhatsApp
-                        </button>
-                        <div class="form-status" id="form-status"></div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary btn-submit">
+                                Enviar por WhatsApp <span class="cta-arrow" aria-hidden="true">→</span>
+                            </button>
+                            <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -554,7 +766,7 @@
                 <div class="link-column">
                     <h4>Navegación</h4>
                     <a href="#services">Servicios</a>
-                    <a href="#about">Sobre nosotros</a>
+                    <a href="#products">Productos</a>
                     <a href="#process">Método</a>
                     <a href="#contact">Contacto</a>
                 </div>

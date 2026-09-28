@@ -1343,354 +1343,446 @@ body.dark-mode .crm-pulse-dot {
 }
 
 /* ==========================================================================
-   SERVICES SECTION (BENTO GRID)
+   SERVICES SECTION: four compact flip cards. Front = looping line
+   illustration + title + one short line + arrow button; back = full
+   description + 4 deliverables in terminal style. Flips on hover (pointer
+   devices) and on click / tap / Enter via .is-flipped (MODULE: FLIP CARDS
+   in app.js). Illustration motion is gated behind
+   prefers-reduced-motion: no-preference.
    ========================================================================== */
 .services-section {
-    padding: 80px 0;
+    position: relative;
+    z-index: 1;
+    padding: 120px 0;
     background-color: var(--bg-main);
-    transition: background-color var(--transition-normal);
-    position: relative;
-    z-index: 1;
 }
 
-.services-section .section-header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-    margin-bottom: 28px;
-}
-
-/* ==========================================================================
-   SERVICES GRID — static pricing-card style: everything a card offers is
-   visible up front (kicker tag, title, CTA, full feature list), no
-   accordion/expand step between click and content.
-   ========================================================================== */
-.service-carousel {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 0 0 8px;
-}
-
-.service-carousel-stage {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: stretch;
-    gap: 24px;
-    width: 100%;
-    max-width: 1100px;
-}
-
-.service-card {
-    background: var(--bg-card);
-    border: 1px solid rgba(var(--glow), 0.18);
-    border-radius: 20px;
-    padding: 32px 28px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    text-align: left;
-    overflow: hidden;
-    position: relative;
-    flex: 1 1 0;
-    min-width: 260px;
-    transition: box-shadow var(--transition-normal),
-        border-color var(--transition-normal),
-        transform var(--transition-normal);
-    box-shadow: 0 0 0 1px rgba(var(--glow), 0.06) inset,
-        0 30px 60px -25px rgba(0, 0, 0, 0.75),
-        0 25px 50px -32px rgba(var(--glow), 0.18);
-}
-
-.service-card::before {
-    content: '';
-    position: absolute;
-    top: -25%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 150%;
-    height: 60%;
-    background: radial-gradient(circle, rgba(var(--glow), 0.2) 0%, transparent 72%);
-    filter: blur(34px);
-    pointer-events: none;
-}
-
-.service-card:hover {
-    transform: translateY(-4px);
-    border-color: rgba(var(--glow), 0.32);
-    box-shadow: 0 0 0 1px rgba(var(--glow), 0.1) inset,
-        0 40px 80px -30px rgba(0, 0, 0, 0.75),
-        0 0 45px -15px rgba(var(--glow), 0.28);
-}
-
-.service-card-head {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    margin-bottom: 20px;
-    position: relative;
-    z-index: 1;
-}
-
-.service-icon-box {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 56px;
-    height: 56px;
-    flex-shrink: 0;
-    border-radius: 16px;
-    color: #fff;
-    background: radial-gradient(circle at 35% 30%, rgba(var(--glow), 0.55), rgba(10, 14, 28, 0.9) 70%);
-    box-shadow: 0 0 24px -4px rgba(var(--glow), 0.6);
-    position: relative;
-    z-index: 1;
-    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
-}
-
-.service-card:hover .service-icon-box {
-    transform: scale(1.08) rotate(-4deg);
-    box-shadow: 0 0 32px -2px rgba(var(--glow), 0.8);
-}
-
-.service-icon {
-    filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.6));
-}
-
-.service-card-title {
-    width: 100%;
-    font-size: 1.4rem;
-    font-weight: 700;
+.services-title {
+    font-family: var(--font-heading);
+    font-size: clamp(2.2rem, 4.4vw, 3.6rem);
+    font-weight: 600;
+    line-height: 1.08;
+    letter-spacing: -0.035em;
     color: var(--text-main);
+    margin-bottom: 56px;
+}
+
+/* Same italic accent as the projects title and the manifesto. */
+.services-title em {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-style: italic;
+    font-weight: 500;
     letter-spacing: -0.01em;
-    margin-bottom: 10px;
-    position: relative;
-    z-index: 1;
+    color: var(--secondary);
 }
 
-.service-card-text {
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+}
+
+/* ---- Flip card --------------------------------------------------------- */
+.service-item {
+    perspective: 1400px;
+    cursor: pointer;
+}
+
+.service-inner {
+    position: relative;
+    display: grid;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.service-item.is-flipped .service-inner {
+    transform: rotateY(180deg);
+}
+
+/* .hover-off: set after a click turns the card back, so the hover doesn't
+   immediately re-flip it; cleared on mouseleave (app.js). */
+@media (hover: hover) {
+    .service-item:not(.hover-off):hover .service-inner {
+        transform: rotateY(180deg);
+    }
+}
+
+.service-face {
+    grid-area: 1 / 1;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 24px 24px 26px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    border-radius: 24px;
+    background: var(--bg-secondary);
+    box-shadow: 0 24px 48px -32px rgba(0, 0, 0, 0.8);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+.service-back {
+    transform: rotateY(180deg);
+    border-color: rgba(0, 196, 255, 0.28);
+    background:
+        radial-gradient(ellipse 90% 70% at 100% 100%, rgba(0, 82, 255, 0.16) 0%, transparent 70%),
+        var(--bg-secondary);
+}
+
+/* Round arrow button: bottom-right on both faces. */
+.service-toggle {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: transparent;
+    color: var(--text-main);
+    cursor: pointer;
+    transition: border-color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.service-toggle:hover {
+    border-color: var(--primary);
+    background-color: var(--primary);
+}
+
+.service-toggle:focus-visible {
+    outline: 2px solid var(--secondary);
+    outline-offset: 3px;
+}
+
+/* ---- Illustration stage -------------------------------------------------- */
+.service-art {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 130px;
+    margin: 0 0 18px;
+}
+
+.svc-art {
     width: 100%;
-    font-size: 0.9rem;
-    line-height: 1.6;
-    color: var(--text-muted);
-    margin-bottom: 24px;
-    position: relative;
-    z-index: 1;
+    max-width: 150px;
+    height: auto;
+    overflow: visible;
+    fill: none;
+    stroke: #CBD5E1;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
 }
 
-.service-card-cta {
-    margin-top: auto;
+.svc-art .acc { stroke: var(--secondary); }
+.svc-art .dot { fill: #CBD5E1; stroke: none; }
+.svc-art .acc-fill { fill: var(--secondary); stroke: none; }
+.svc-art--web .pointer { fill: #F8FAFC; stroke: var(--bg-secondary); stroke-width: 1; }
+/* Resting spot on the CTA (used as-is when motion is reduced). */
+.svc-art--web .pointer { transform: translate(44px, 76px); }
+
+/* ---- Text --------------------------------------------------------------- */
+.service-title {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--text-main);
+    margin-bottom: 6px;
+}
+
+.service-short {
+    font-size: 0.92rem;
+    line-height: 1.5;
+    color: var(--text-muted);
+    padding-right: 40px; /* keep clear of the arrow button */
+}
+
+.service-back-title {
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--secondary);
+    margin-bottom: 8px;
+}
+
+.service-text {
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+}
+
+.service-list {
+    list-style: none;
+    display: grid;
+    gap: 7px;
+    padding: 14px 40px 0 0;
+    border-top: 1px solid var(--border-color);
+}
+
+.service-list li {
+    position: relative;
+    padding-left: 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    line-height: 1.45;
+    color: #CBD5E1;
+}
+
+/* Terminal-style prompt instead of a bullet. */
+.service-list li::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--secondary);
+}
+
+.services-cta {
+    margin-top: 32px;
+    font-size: 1rem;
+    color: var(--text-muted);
+}
+
+.services-cta a {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    gap: 8px;
-    width: 100%;
-    padding: 14px 18px;
-    border-radius: 100px;
-    border: none;
-    background: #fff;
-    color: #0B0F1A;
-    font-size: 0.9rem;
-    font-weight: 700;
-    font-family: inherit;
-    text-decoration: none;
-    cursor: pointer;
-    position: relative;
-    z-index: 1;
+    gap: 6px;
+    margin-left: 6px;
+    font-family: var(--font-heading);
+    font-weight: 500;
+    color: var(--text-main);
+    transition: color var(--transition-fast);
+}
+
+.services-cta a:hover {
+    color: var(--secondary);
+}
+
+.services-cta .cta-arrow {
     transition: transform var(--transition-fast);
 }
 
-.service-card-cta:hover {
-    transform: translateY(-2px);
-}
-
-.service-card-cta .cta-arrow {
-    transition: transform var(--transition-fast);
-}
-
-.service-card-cta:hover .cta-arrow {
+.services-cta a:hover .cta-arrow {
     transform: translateX(3px);
 }
 
-.service-card-features {
-    width: 100%;
-    margin-top: 24px;
-    padding-top: 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    position: relative;
-    z-index: 1;
-}
+/* Cards reveal one after another. */
+.services-grid .service-item:nth-child(2) { transition-delay: 0.06s; }
+.services-grid .service-item:nth-child(3) { transition-delay: 0.12s; }
+.services-grid .service-item:nth-child(4) { transition-delay: 0.18s; }
 
-.service-feature-label {
-    font-size: 0.72rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--text-muted);
-    margin-bottom: 12px;
-}
-
-.service-feature-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.service-feature-list li {
-    position: relative;
-    padding-left: 20px;
-    font-size: 0.86rem;
-    line-height: 1.5;
-    color: var(--text-muted);
-}
-
-.service-feature-list li::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0.55em;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: rgba(var(--glow), 0.9);
-}
-
-/* Scroll reveal: each card slides in from the left with a stagger. Its own
-   transition list has to repeat box-shadow/border-color (not just rely on
-   the generic .reveal-on-scroll opacity+transform pair), otherwise adding
-   that class would override the hover-glow transition with a hard snap. */
-.service-card.reveal-on-scroll {
-    transform: translateX(-28px);
-    transition: opacity var(--transition-slow), transform var(--transition-slow),
-        box-shadow var(--transition-normal), border-color var(--transition-normal);
-}
-
-.service-card.reveal-on-scroll.active {
-    transform: none;
-}
-
-.service-carousel-stage .service-card:nth-child(1) { transition-delay: 0s; }
-.service-carousel-stage .service-card:nth-child(2) { transition-delay: 0.08s; }
-.service-carousel-stage .service-card:nth-child(3) { transition-delay: 0.16s; }
-.service-carousel-stage .service-card:nth-child(4) { transition-delay: 0.24s; }
-
-/* Feature list "types itself in" bullet by bullet once the card lands,
-   reusing the same .active flag the reveal-on-scroll observer already
-   sets on the card — no extra JS needed. */
-.service-feature-list li {
-    opacity: 0;
-    transform: translateY(8px);
-    filter: blur(3px);
-    transition: opacity 0.45s ease,
-        transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-        filter 0.45s ease;
-}
-
-.service-card.active .service-feature-list li {
-    opacity: 1;
-    transform: translateY(0);
-    filter: blur(0);
-}
-
-.service-card.active .service-feature-list li:nth-child(1) { transition-delay: 0.22s; }
-.service-card.active .service-feature-list li:nth-child(2) { transition-delay: 0.28s; }
-.service-card.active .service-feature-list li:nth-child(3) { transition-delay: 0.34s; }
-.service-card.active .service-feature-list li:nth-child(4) { transition-delay: 0.4s; }
-.service-card.active .service-feature-list li:nth-child(5) { transition-delay: 0.46s; }
-.service-card.active .service-feature-list li:nth-child(6) { transition-delay: 0.52s; }
-.service-card.active .service-feature-list li:nth-child(7) { transition-delay: 0.58s; }
-.service-card.active .service-feature-list li:nth-child(8) { transition-delay: 0.64s; }
-
-/* Wide layout: every service card spans the full row, intro column on the
-   left (icon, title, text, CTA) and the feature list on the right — the
-   same horizontal orientation as a pricing table's enterprise/custom row,
-   applied to all cards on desktop. */
-.service-card--wide {
-    flex: 1 1 100%;
-    width: 100%;
-    flex-direction: row;
-    align-items: center;
-    gap: 48px;
-    padding: 36px 40px;
-}
-
-.service-card-wide-intro {
-    flex: 0 0 320px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-}
-
-.service-card-wide-intro .service-card-text {
-    margin-bottom: 22px;
-}
-
-.service-card-wide-intro .service-card-cta {
-    width: auto;
-    padding: 14px 26px;
-    white-space: nowrap;
-}
-
-.service-card-features--wide {
-    flex: 1 1 auto;
-    align-self: stretch;
-    margin-top: 0;
-    padding-top: 0;
-    padding-left: 40px;
-    border-top: none;
-    border-left: 1px solid rgba(255, 255, 255, 0.08);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.service-feature-list--cols {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(200px, 1fr));
-    column-gap: 32px;
-    row-gap: 12px;
-}
-
-@media (max-width: 900px) {
-    .service-card--wide {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 28px;
+@media (prefers-reduced-motion: reduce) {
+    /* Swap faces with a fade instead of a 3D turn. */
+    .service-inner,
+    .service-item.is-flipped .service-inner,
+    .service-item:not(.hover-off):hover .service-inner {
+        transform: none;
+        transition: none;
     }
 
-    .service-card-wide-intro {
-        flex: 0 0 auto;
-        width: 100%;
+    .service-back {
+        transform: none;
+        opacity: 0;
+        transition: opacity 0.25s ease;
     }
 
-    .service-card-wide-intro .service-card-cta {
-        width: 100%;
-    }
-
-    .service-card-features--wide {
-        width: 100%;
-        padding-left: 0;
-        padding-top: 24px;
-        border-left: none;
-        border-top: 1px solid rgba(255, 255, 255, 0.08);
+    .service-item.is-flipped .service-back {
+        opacity: 1;
     }
 }
 
-@media (max-width: 600px) {
-    .service-card {
-        flex: 1 1 100%;
-        min-width: 0;
-        padding: 28px 22px;
+@media (prefers-reduced-motion: reduce) and (hover: hover) {
+    .service-item:not(.hover-off):hover .service-back {
+        opacity: 1;
+    }
+}
+
+/* ---- Illustration motion ------------------------------------------------ */
+@media (prefers-reduced-motion: no-preference) {
+    .svc-art * {
+        transform-box: fill-box;
     }
 
-    .service-feature-list--cols {
+    /* 1. Automation: data flows through the chip. */
+    .svc-art--auto .flow {
+        stroke-dasharray: 3 6;
+        animation: svc-flow 1.1s linear infinite;
+    }
+
+    .svc-art--auto .packet {
+        animation: svc-packet-in 2.6s cubic-bezier(0.45, 0, 0.3, 1) infinite;
+    }
+
+    .svc-art--auto .packet--2 { animation-delay: 1.3s; }
+
+    .svc-art--auto .packet--out {
+        animation: svc-packet-out 2.6s cubic-bezier(0.45, 0, 0.3, 1) 0.9s infinite;
+    }
+
+    .svc-art--auto .core,
+    .svc-art--auto .core-spark {
+        transform-origin: center;
+        animation: svc-pulse 2.6s ease-in-out infinite;
+    }
+
+    .svc-art--auto .core-spark {
+        animation-name: svc-spin-pulse;
+    }
+
+    /* 2. Code: lines type themselves, caret blinks. */
+    .svc-art--code .code-line {
+        stroke-dasharray: 1;
+        stroke-dashoffset: 1;
+        animation: svc-type 5s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+    }
+
+    .svc-art--code .code-line:nth-of-type(3) { animation-delay: 0.45s; }
+    .svc-art--code .code-line:nth-of-type(4) { animation-delay: 0.9s; }
+    .svc-art--code .code-line:nth-of-type(5) { animation-delay: 1.35s; }
+
+    .svc-art--code .caret {
+        animation: svc-blink 1s steps(1) infinite;
+    }
+
+    /* 3. Web: the page assembles, then a pointer clicks the CTA. */
+    .svc-art--web .blk {
+        animation: svc-build 5.5s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+    }
+
+    .svc-art--web .blk-2 { animation-delay: 0.25s; }
+    .svc-art--web .blk-3 { animation-delay: 0.5s; }
+    .svc-art--web .blk-4 { animation-delay: 0.75s; }
+
+    .svc-art--web .pointer {
+        animation: svc-pointer 5.5s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+    }
+
+    /* 4. Learning: the cap floats, the tassel swings, sparkles twinkle. */
+    .svc-art--learn .cap {
+        animation: svc-float 4s ease-in-out infinite;
+    }
+
+    .svc-art--learn .tassel {
+        transform-box: view-box;
+        transform-origin: 80px 50px;
+        animation: svc-swing 2.4s ease-in-out infinite alternate;
+    }
+
+    .svc-art--learn .spark {
+        transform-origin: center;
+        animation: svc-twinkle 2.8s ease-in-out infinite;
+    }
+
+    .svc-art--learn .spark-2 { animation-delay: 0.7s; }
+    .svc-art--learn .spark-3 { animation-delay: 1.4s; }
+    .svc-art--learn .spark-4 { animation-delay: 2.1s; }
+}
+
+@keyframes svc-flow {
+    to { stroke-dashoffset: -18; }
+}
+
+@keyframes svc-packet-in {
+    0% { transform: translateX(0); opacity: 0; }
+    12% { opacity: 1; }
+    62% { transform: translateX(42px); opacity: 1; }
+    72%, 100% { transform: translateX(42px); opacity: 0; }
+}
+
+@keyframes svc-packet-out {
+    0% { transform: translateX(0); opacity: 0; }
+    12% { opacity: 1; }
+    62% { transform: translateX(42px); opacity: 1; }
+    72%, 100% { transform: translateX(42px); opacity: 0; }
+}
+
+@keyframes svc-pulse {
+    0%, 100% { transform: scale(1); opacity: 0.85; }
+    50% { transform: scale(1.08); opacity: 1; }
+}
+
+@keyframes svc-spin-pulse {
+    0%, 100% { transform: scale(0.9) rotate(0deg); }
+    50% { transform: scale(1.15) rotate(90deg); }
+}
+
+@keyframes svc-type {
+    0% { stroke-dashoffset: 1; opacity: 1; }
+    22% { stroke-dashoffset: 0; }
+    80% { stroke-dashoffset: 0; opacity: 1; }
+    92%, 100% { stroke-dashoffset: 0; opacity: 0; }
+}
+
+@keyframes svc-blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+@keyframes svc-build {
+    0% { opacity: 0; transform: translateY(6px); }
+    12% { opacity: 1; transform: none; }
+    84% { opacity: 1; transform: none; }
+    96%, 100% { opacity: 0; transform: none; }
+}
+
+@keyframes svc-pointer {
+    0%, 20% { transform: translate(128px, 104px); opacity: 0; }
+    30% { opacity: 1; }
+    52% { transform: translate(44px, 76px) scale(1); }
+    58% { transform: translate(44px, 76px) scale(0.8); }
+    64% { transform: translate(44px, 76px) scale(1); }
+    84% { transform: translate(44px, 76px); opacity: 1; }
+    96%, 100% { transform: translate(44px, 76px); opacity: 0; }
+}
+
+@keyframes svc-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-7px); }
+}
+
+@keyframes svc-swing {
+    from { transform: rotate(-5deg); }
+    to { transform: rotate(6deg); }
+}
+
+@keyframes svc-twinkle {
+    0%, 100% { transform: scale(0.4) rotate(0deg); opacity: 0.2; }
+    50% { transform: scale(1.1) rotate(45deg); opacity: 1; }
+}
+
+/* ---- Responsive --------------------------------------------------------- */
+@media (max-width: 1100px) {
+    .services-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 640px) {
+    .services-section {
+        padding: 80px 0;
+    }
+
+    .services-title {
+        margin-bottom: 36px;
+    }
+
+    .services-grid {
         grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .service-art {
+        height: 120px;
     }
 }
 
@@ -1741,224 +1833,330 @@ body.dark-mode .crm-pulse-dot {
 }
 
 /* ==========================================================================
-   ABOUT US SECTION
+   PRODUCTS SECTION: project grid. Left-aligned title with the brand in
+   italic serif, then two cards side by side and a full-width one. Each
+   card is a 3D flipper: front = screenshot (or typographic poster) + name
+   bar with a round arrow button; back = project details. Flips on hover
+   (pointer devices) and on click / tap / Enter via .is-flipped (app.js).
    ========================================================================== */
-/* ==========================================================================
-   ABOUT US — centered lead paragraph over a row of stat cards, the middle
-   one elevated, with faint concentric rings behind them. Modeled on a
-   reference "results" section.
-   ========================================================================== */
-.about-results {
+.products-section {
     position: relative;
-    overflow: hidden;
     background-color: var(--bg-main);
-    padding: 100px 0 120px;
+    padding: 112px 0 120px;
 }
 
-/* Faint concentric rings centered behind the card row, echoing the ripple
-   backdrop in the reference. */
-.about-results-rings {
-    position: absolute;
-    top: 62%;
-    left: 50%;
-    width: 1100px;
-    height: 1100px;
-    transform: translate(-50%, -50%);
-    border-radius: 50%;
-    background: repeating-radial-gradient(circle,
-        rgba(255, 255, 255, 0.05) 0px,
-        rgba(255, 255, 255, 0.05) 1px,
-        transparent 1px,
-        transparent 70px);
-    -webkit-mask-image: radial-gradient(circle, black 0%, black 55%, transparent 75%);
-    mask-image: radial-gradient(circle, black 0%, black 55%, transparent 75%);
-    pointer-events: none;
-    z-index: 0;
-    animation: about-rings-pulse 4.5s ease-in-out infinite;
+.projects-title {
+    font-family: var(--font-heading);
+    font-size: clamp(2.4rem, 5.2vw, 4.4rem);
+    font-weight: 500;
+    line-height: 1.08;
+    letter-spacing: -0.035em;
+    color: var(--text-main);
+    margin-bottom: 64px;
 }
 
-@keyframes about-rings-pulse {
-
-    0%,
-    100% {
-        scale: 0.94;
-        opacity: 0.7;
-    }
-
-    50% {
-        scale: 1.06;
-        opacity: 1;
-    }
+.projects-title em {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-style: italic;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: var(--secondary);
 }
 
-@media (prefers-reduced-motion: reduce) {
-    .about-results-rings {
-        animation: none;
-    }
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
 }
 
-.about-results-intro {
+.project-card--wide {
+    grid-column: 1 / -1;
+}
+
+/* ---- Flipper ------------------------------------------------------------ */
+.project-card {
+    perspective: 1600px;
+    cursor: pointer;
+}
+
+.project-inner {
     position: relative;
-    z-index: 1;
+    display: grid;
+    transform-style: preserve-3d;
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.project-card.is-flipped .project-inner {
+    transform: rotateY(180deg);
+}
+
+/* .hover-off: set after a click turns the card back, so the hover doesn't
+   immediately re-flip it; cleared on mouseleave (app.js). */
+@media (hover: hover) {
+    .project-card:not(.hover-off):hover .project-inner {
+        transform: rotateY(180deg);
+    }
+}
+
+.project-face {
+    grid-area: 1 / 1;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    max-width: 760px;
-    margin: 0 auto 64px;
-    text-align: center;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    background: var(--bg-secondary);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
 }
 
-.about-results-badge {
-    margin-bottom: 22px;
+.project-back {
+    transform: rotateY(180deg);
 }
 
-.about-results-lead {
-    font-size: clamp(1.3rem, 2.4vw, 1.75rem);
+/* ---- Front -------------------------------------------------------------- */
+.project-media {
+    position: relative;
+    flex: 1;
+    min-height: clamp(240px, 26vw, 360px);
+    overflow: hidden;
+    background: #0A0F1C;
+}
+
+.project-media img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+}
+
+/* Typographic cover shown until a real screenshot is dropped in. */
+.project-poster {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: flex-end;
+    padding: 32px;
+    background:
+        radial-gradient(ellipse 70% 90% at 85% 10%, rgba(0, 196, 255, 0.18) 0%, transparent 60%),
+        radial-gradient(ellipse 80% 80% at 10% 110%, rgba(0, 82, 255, 0.35) 0%, transparent 65%),
+        #0A0F1C;
+}
+
+.project-card:nth-child(2) .project-poster {
+    background:
+        radial-gradient(ellipse 70% 90% at 15% 0%, rgba(0, 196, 255, 0.2) 0%, transparent 60%),
+        radial-gradient(ellipse 80% 80% at 95% 105%, rgba(0, 82, 255, 0.35) 0%, transparent 65%),
+        #0A0F1C;
+}
+
+.project-card--wide .project-poster {
+    background:
+        radial-gradient(ellipse 50% 90% at 70% 50%, rgba(0, 82, 255, 0.3) 0%, transparent 65%),
+        radial-gradient(ellipse 40% 70% at 100% 0%, rgba(0, 196, 255, 0.16) 0%, transparent 60%),
+        #0A0F1C;
+}
+
+.project-poster-name {
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 4.2vw, 3.6rem);
     font-weight: 600;
-    line-height: 1.5;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: rgba(248, 250, 252, 0.92);
+}
+
+.project-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 20px 24px;
+    border-top: 1px solid var(--border-color);
+}
+
+.project-name {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    font-weight: 500;
     letter-spacing: -0.01em;
     color: var(--text-main);
 }
 
-/* Each letter starts flung to a random offset (set inline as --lx/--ly/--lr
-   by JS) and flies into place to assemble the sentence on scroll-in. */
-.about-results-lead .scatter-letter {
-    display: inline-block;
-    opacity: 0;
-    filter: blur(6px);
-    transform: translate(var(--lx, 0px), var(--ly, 0px)) rotate(var(--lr, 0deg)) scale(0.5);
-    transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
-        transform 1s cubic-bezier(0.16, 1, 0.3, 1),
-        filter 0.85s ease;
-}
-
-.about-results-lead .scatter-letter.revealed {
-    opacity: 1;
-    filter: blur(0);
-    transform: translate(0, 0) rotate(0deg) scale(1);
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .about-results-lead .scatter-letter {
-        opacity: 1;
-        filter: none;
-        transform: none;
-        transition: none;
-    }
-}
-
-.about-results-cards {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    gap: 24px;
-    max-width: 1000px;
-    margin: 0 auto;
-}
-
-.about-results-card {
-    flex: 1 1 0;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 40px 28px;
-    background: var(--bg-card);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: var(--border-radius-md);
-    box-shadow: 0 20px 45px -25px rgba(0, 0, 0, 0.6);
-    transition: transform var(--transition-normal), border-color var(--transition-normal), box-shadow var(--transition-normal);
-}
-
-/* Entrance: rise up from below + fade in, staggered card by card. The
-   combined transition list has to repeat here (not just rely on the
-   generic .reveal-on-scroll opacity+transform pair) so hover keeps its own
-   smooth border-color/box-shadow transition instead of snapping. */
-.about-results-card.reveal-on-scroll {
-    transform: translateY(50px);
-    transition: opacity var(--transition-slow), transform var(--transition-slow),
-        border-color var(--transition-normal), box-shadow var(--transition-normal);
-}
-
-.about-results-card.reveal-on-scroll.active {
-    transform: translateY(0);
-}
-
-.about-results-cards .about-results-card:nth-child(1) { transition-delay: 0.05s; }
-.about-results-cards .about-results-card:nth-child(2) { transition-delay: 0.2s; }
-.about-results-cards .about-results-card:nth-child(3) { transition-delay: 0.35s; }
-
-.about-results-card:hover {
-    transform: translateY(-6px);
-    border-color: rgba(0, 130, 255, 0.35);
-    box-shadow: 0 30px 55px -25px rgba(0, 0, 0, 0.65), 0 0 30px -10px rgba(0, 130, 255, 0.25);
-    transition-delay: 0s !important;
-}
-
-/* The middle card stands taller than its neighbors — bigger padding and a
-   bigger number — the way the featured card reaches higher in the reference. */
-.about-results-card--featured {
-    padding: 56px 32px;
-    background: linear-gradient(165deg, rgba(0, 82, 255, 0.1) 0%, var(--bg-card) 60%);
-    border-color: rgba(0, 130, 255, 0.25);
-}
-
-.about-results-card--featured .about-results-number {
-    font-size: clamp(3rem, 5.5vw, 4.5rem);
-}
-
-.about-results-number {
-    font-family: var(--font-heading);
-    font-size: clamp(2.4rem, 4.2vw, 3.4rem);
-    font-weight: 800;
-    line-height: 1;
-    letter-spacing: -0.02em;
-    color: #FFFFFF;
-    margin-bottom: 16px;
-}
-
-.about-results-label {
-    font-size: 0.78rem;
-    font-weight: 700;
+.project-type {
+    margin-top: 4px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: rgba(0, 196, 255, 1);
-    margin-bottom: 10px;
-}
-
-.about-results-text {
-    font-size: 0.86rem;
-    line-height: 1.55;
     color: var(--text-muted);
 }
 
-@media (max-width: 768px) {
-    .about-results-cards {
-        flex-direction: column;
-        align-items: stretch;
-        max-width: 420px;
+.project-toggle {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: transparent;
+    color: var(--text-main);
+    cursor: pointer;
+    transition: border-color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.project-toggle:hover {
+    border-color: var(--primary);
+    background-color: var(--primary);
+}
+
+.project-toggle:focus-visible {
+    outline: 2px solid var(--secondary);
+    outline-offset: 3px;
+}
+
+/* ---- Back --------------------------------------------------------------- */
+.project-back {
+    position: relative;
+    justify-content: center;
+    padding: 40px;
+    background:
+        radial-gradient(ellipse 80% 60% at 100% 100%, rgba(0, 82, 255, 0.14) 0%, transparent 70%),
+        var(--bg-secondary);
+}
+
+.project-back .project-type {
+    margin: 0 0 14px;
+    color: var(--secondary);
+}
+
+.project-back-title {
+    font-family: var(--font-heading);
+    font-size: clamp(1.4rem, 2.2vw, 1.85rem);
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--text-main);
+    margin-bottom: 14px;
+    max-width: 22ch;
+}
+
+.project-desc {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--text-muted);
+    max-width: 46ch;
+    margin-bottom: 22px;
+}
+
+.project-list {
+    list-style: none;
+    display: grid;
+    gap: 10px;
+}
+
+.project-list li {
+    position: relative;
+    padding-left: 22px;
+    font-size: 0.95rem;
+    color: var(--text-main);
+}
+
+.project-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.62em;
+    width: 10px;
+    height: 1px;
+    background: var(--secondary);
+}
+
+.project-toggle--back {
+    position: absolute;
+    right: 24px;
+    bottom: 22px;
+}
+
+/* The wide card's back splits into two columns: text and deliverables. */
+.project-card--wide .project-back {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    grid-template-rows: auto auto auto;
+    column-gap: 64px;
+    align-content: center;
+}
+
+.project-card--wide .project-back > .project-type,
+.project-card--wide .project-back-title,
+.project-card--wide .project-desc {
+    grid-column: 1;
+}
+
+.project-card--wide .project-list {
+    grid-column: 2;
+    grid-row: 1 / span 3;
+    align-self: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    /* Swap faces with a fade instead of a 3D turn. */
+    .project-inner,
+    .project-card.is-flipped .project-inner,
+    .project-card:not(.hover-off):hover .project-inner {
+        transform: none;
+        transition: none;
     }
 
-    .about-results-card--featured {
-        order: -1;
-        padding: 40px 28px;
+    .project-back {
+        transform: none;
+        opacity: 0;
+        transition: opacity 0.25s ease;
     }
 
-    .about-results-card--featured .about-results-number {
-        font-size: clamp(2.4rem, 8vw, 3.4rem);
+    .project-card.is-flipped .project-back {
+        opacity: 1;
     }
 }
 
-@media (max-width: 600px) {
-    .about-results {
-        padding: 100px 0 70px;
+@media (prefers-reduced-motion: reduce) and (hover: hover) {
+    .project-card:not(.hover-off):hover .project-back {
+        opacity: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .products-section {
+        padding: 80px 0;
     }
 
-    .about-results-intro {
-        margin-bottom: 44px;
+    .projects-title {
+        margin-bottom: 40px;
+    }
+
+    .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .project-media {
+        min-height: 220px;
+    }
+
+    .project-poster {
+        padding: 24px;
+    }
+
+    .project-back {
+        padding: 28px 24px 72px;
+    }
+
+    .project-card--wide .project-back {
+        display: flex;
     }
 }
 
@@ -2085,82 +2283,277 @@ body.dark-mode .crm-pulse-dot {
 
 
 /* ==========================================================================
-   CONTACT SECTION & FORM
+   MANIFESTO SECTION: full-screen kinetic statement ("Intelligent Solutions
+   Powered by AI") before the contact form. Oversized centred Outfit type,
+   one italic serif accent word, inline photo capsules and two small brand
+   glyphs. Lines stagger in when the title gets .active (scroll reveal).
+   ========================================================================== */
+.manifesto-section {
+    position: relative;
+    min-height: 100dvh;
+    display: flex;
+    align-items: center;
+    padding: 96px 0;
+    overflow: hidden;
+    background:
+        radial-gradient(ellipse 60% 45% at 50% 55%, rgba(0, 82, 255, 0.12) 0%, transparent 70%),
+        var(--bg-main);
+}
+
+.manifesto-section > .container {
+    position: relative;
+    z-index: 1;
+}
+
+/* Light that trails the cursor behind the type (moved by app.js with a
+   little inertia). Hidden until the pointer enters the section. */
+.manifesto-glow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 720px;
+    height: 720px;
+    margin: -360px 0 0 -360px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0, 196, 255, 0.26) 0%, rgba(0, 82, 255, 0.16) 35%, transparent 68%);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    will-change: transform;
+}
+
+.manifesto-section.is-lit .manifesto-glow {
+    opacity: 1;
+}
+
+.manifesto-title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.02em;
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: clamp(3.2rem, 9.5vw, 8.5rem);
+    line-height: 1.05;
+    letter-spacing: -0.045em;
+    color: var(--text-main);
+    text-align: center;
+}
+
+/* The title itself stays put; its lines do the reveal. */
+.manifesto-title.reveal-on-scroll,
+.manifesto-title.reveal-on-scroll.active {
+    opacity: 1;
+    transform: none;
+}
+
+.manifesto-line {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.22em;
+    white-space: nowrap;
+}
+
+.manifesto-accent {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-style: italic;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: var(--secondary);
+    /* Italic descender clearance (the "l" tail and the line below). */
+    padding: 0 0.04em 0.06em;
+}
+
+.manifesto-ai {
+    color: var(--primary);
+}
+
+/* Photo capsules sitting inline with the type. */
+.manifesto-pill {
+    width: 1.55em;
+    height: 0.66em;
+    object-fit: cover;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    box-shadow: 0 18px 40px -16px rgba(0, 82, 255, 0.45);
+    flex-shrink: 0;
+}
+
+.manifesto-spark {
+    width: 0.5em;
+    height: 0.5em;
+    color: var(--secondary);
+    flex-shrink: 0;
+}
+
+.manifesto-bolt {
+    width: 0.32em;
+    height: 0.32em;
+    color: var(--secondary);
+    align-self: flex-start;
+    margin-top: 0.3em;
+    flex-shrink: 0;
+}
+
+/* ---- Reveal ------------------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+    .manifesto-line {
+        opacity: 0;
+        transform: translateY(0.35em);
+        transition: opacity 0.7s ease, transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .manifesto-line:nth-child(2) { transition-delay: 0.1s; }
+    .manifesto-line:nth-child(3) { transition-delay: 0.2s; }
+    .manifesto-line:nth-child(4) { transition-delay: 0.3s; }
+
+    .manifesto-title.active .manifesto-line {
+        opacity: 1;
+        transform: none;
+    }
+
+    .manifesto-pill {
+        transform: scale(0.6) rotate(-4deg);
+        opacity: 0;
+        transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1) 0.35s, opacity 0.6s ease 0.35s;
+    }
+
+    .manifesto-title.active .manifesto-pill {
+        transform: none;
+        opacity: 1;
+    }
+
+    /* ---- Float ----------------------------------------------------------
+       Once revealed, every line drifts up and down a few pixels on its own
+       rhythm, so the statement feels suspended rather than printed. Uses the
+       standalone translate / rotate properties so it composes with the
+       reveal's transform instead of overriding it. */
+    .manifesto-title.active .manifesto-line {
+        animation: manifesto-float 6s ease-in-out 1.2s infinite;
+    }
+
+    .manifesto-title.active .manifesto-line:nth-child(2) { animation-duration: 7s; animation-delay: 0.4s; }
+    .manifesto-title.active .manifesto-line:nth-child(3) { animation-duration: 6.5s; animation-delay: 1.6s; }
+    .manifesto-title.active .manifesto-line:nth-child(4) { animation-duration: 7.5s; animation-delay: 0.9s; }
+
+    /* Capsules and glyphs sway a little on top of their line's drift. */
+    .manifesto-title.active .manifesto-pill {
+        animation: manifesto-sway 5.5s ease-in-out 1.4s infinite;
+    }
+
+    .manifesto-title.active .manifesto-line:nth-child(3) .manifesto-pill {
+        animation-duration: 6.2s;
+        animation-direction: reverse;
+    }
+
+    .manifesto-title.active .manifesto-spark {
+        animation: manifesto-twinkle 4s ease-in-out infinite;
+    }
+
+    .manifesto-title.active .manifesto-bolt {
+        animation: manifesto-sway 3.8s ease-in-out infinite;
+    }
+}
+
+@keyframes manifesto-float {
+    0%, 100% { translate: 0 0; }
+    50% { translate: 0 -0.07em; }
+}
+
+@keyframes manifesto-sway {
+    0%, 100% { translate: 0 0; rotate: 0deg; }
+    50% { translate: 0 -0.05em; rotate: -3deg; }
+}
+
+@keyframes manifesto-twinkle {
+    0%, 100% { scale: 1; rotate: 0deg; }
+    50% { scale: 0.85; rotate: 45deg; }
+}
+
+@media (max-width: 768px) {
+    .manifesto-section {
+        min-height: 80dvh;
+        padding: 96px 0;
+    }
+
+    .manifesto-title {
+        font-size: clamp(2.2rem, 10.5vw, 4rem);
+    }
+}
+
+/* ==========================================================================
+   CONTACT SECTION & FORM: minimal two-column layout. Left: headline,
+   subtitle and plain contact lines (label over value, no icons). Right:
+   line inputs (bottom border only) that light up in brand blue on focus.
    ========================================================================== */
 .contact-section {
-    padding: 50px 0;
+    padding: 120px 0;
+    border-top: 1px solid var(--border-color);
 }
 
 .contact-container {
     display: grid;
-    grid-template-columns: 0.9fr 1.1fr;
-    gap: 60px;
-    align-items: center;
-}
-
-.contact-info {
-    display: flex;
-    flex-direction: column;
-}
-
-.contact-badge {
-    margin-bottom: 20px;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    gap: 96px;
+    align-items: start;
 }
 
 .contact-headline {
     font-family: var(--font-heading);
     font-size: clamp(2.2rem, 4vw, 3.2rem);
-    font-weight: 800;
+    font-weight: 700;
     line-height: 1.1;
     letter-spacing: -0.02em;
     color: var(--text-main);
+    max-width: 12ch;
     margin-bottom: 20px;
 }
 
+.contact-subtitle {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--text-muted);
+    max-width: 40ch;
+}
+
 .contact-details {
-    margin-top: 40px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+    margin-top: 56px;
+    display: grid;
+    gap: 24px;
 }
 
-.detail-item {
-    display: flex;
-    align-items: center;
-    gap: 14px;
+.detail-item dt {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 4px;
 }
 
-.detail-icon-round {
-    font-size: 1.2rem;
-    width: 44px;
-    height: 44px;
-    background-color: var(--bg-card);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    border: 1px solid var(--border-color);
-}
-
-.detail-item .link {
-    font-size: 0.98rem;
-    font-weight: 600;
+.detail-item dd {
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    font-weight: 500;
     color: var(--text-main);
 }
 
-.contact-form-container {
-    background: linear-gradient(165deg, rgba(0, 40, 110, 0.55) 0%, rgba(2, 6, 16, 0.96) 100%), var(--bg-card);
-    border: 1px solid rgba(0, 90, 200, 0.4);
-    border-radius: 28px;
-    padding: 44px;
-    box-shadow: 0 30px 60px -25px rgba(0, 82, 255, 0.35);
+.detail-item a {
+    transition: color var(--transition-fast);
+}
+
+.detail-item a:hover {
+    color: var(--secondary);
 }
 
 .contact-form {
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 32px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
 }
 
 .form-group {
@@ -2171,90 +2564,119 @@ body.dark-mode .crm-pulse-dot {
 
 .form-group label {
     font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--text-main);
+    font-weight: 500;
+    color: var(--text-muted);
 }
 
 .form-group input,
 .form-group textarea {
-    padding: 14px 18px;
-    border-radius: 14px;
-    border: 1px solid rgba(0, 90, 200, 0.3);
-    background-color: rgba(2, 10, 26, 0.5);
+    width: 100%;
+    padding: 8px 0 12px;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 0;
+    background: transparent;
     color: var(--text-main);
-    font-size: 0.95rem;
-    transition: all var(--transition-fast);
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 88px;
+    line-height: 1.6;
 }
 
 .form-group input::placeholder,
 .form-group textarea::placeholder {
-    color: var(--text-muted);
-    opacity: 0.6;
+    color: #7C8799; /* ~4.9:1 on the page bg (AA), clearly dimmer than typed text */
+}
+
+.form-group input:hover,
+.form-group textarea:hover {
+    border-bottom-color: rgba(255, 255, 255, 0.28);
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
     outline: none;
-    border-color: var(--primary);
-    background-color: rgba(2, 10, 26, 0.7);
-    box-shadow: 0 0 0 3px var(--primary-glow);
+    border-bottom-color: var(--primary);
+    box-shadow: 0 1px 0 0 var(--primary);
 }
 
-.btn-submit-round {
-    display: inline-flex;
+.form-group input[aria-invalid="true"],
+.form-group textarea[aria-invalid="true"] {
+    border-bottom-color: #F87171;
+}
+
+.form-actions {
+    display: flex;
     align-items: center;
-    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 8px;
+}
+
+.btn-submit {
     gap: 10px;
-    align-self: flex-start;
-    padding: 14px 26px;
-    border-radius: 100px;
-    border: none;
-    background-color: var(--text-main);
-    color: var(--bg-main);
-    font-size: 0.95rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: transform var(--transition-fast), opacity var(--transition-fast);
+    padding: 14px 28px;
 }
 
-.btn-submit-round:hover {
-    transform: translateY(-2px);
-    opacity: 0.9;
+.btn-submit .cta-arrow {
+    transition: transform var(--transition-fast);
 }
 
-.btn-submit-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    background-color: var(--primary);
-    color: #fff;
+.btn-submit:hover .cta-arrow {
+    transform: translateX(3px);
 }
 
-.readonly-input {
-    font-weight: 600;
-    color: var(--primary) !important;
-    border-color: var(--primary) !important;
-    background-color: var(--primary-glow) !important;
+.btn-submit:active {
+    transform: scale(0.98);
 }
 
 .form-status {
-    font-size: 0.85rem;
-    text-align: center;
-    margin-top: 10px;
+    font-size: 0.9rem;
     display: none;
 }
 
 .form-status.success {
     display: block;
-    color: #10B981;
+    color: #34D399;
 }
 
 .form-status.error {
     display: block;
-    color: #EF4444;
+    color: #F87171;
+}
+
+@media (max-width: 1024px) {
+    .contact-container {
+        gap: 64px;
+    }
+}
+
+@media (max-width: 768px) {
+    .contact-section {
+        padding: 80px 0;
+    }
+
+    .contact-container {
+        grid-template-columns: 1fr;
+        gap: 56px;
+    }
+
+    .contact-details {
+        margin-top: 36px;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .btn-submit {
+        width: 100%;
+    }
 }
 
 /* ==========================================================================
@@ -2388,11 +2810,6 @@ body.dark-mode .crm-pulse-dot {
     }
 
     /* Removed unused about-grid queries */
-
-    .contact-container {
-        grid-template-columns: 1fr;
-        gap: 40px;
-    }
 }
 
 @media (max-width: 991px) {
@@ -2466,11 +2883,6 @@ body.dark-mode .crm-pulse-dot {
     .nav-cta {
         display: none;
         /* Hide outline CTA on mobile header */
-    }
-
-    .contact-form-container {
-        padding: 24px;
-        border-radius: 20px;
     }
 
     .hero-sticky-stage {
@@ -2547,10 +2959,6 @@ body.dark-mode .crm-pulse-dot {
 
     .process-path-wrap {
         min-height: 0;
-    }
-
-    .form-row {
-        grid-template-columns: 1fr;
     }
 
     .footer-container {
