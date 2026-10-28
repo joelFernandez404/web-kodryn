@@ -1,2 +1,9 @@
 node_modules/
 .impeccable/
+
+# Original (uncompressed) launch videos and Windows folder metadata;
+# the site uses the web versions in videos/*.mp4 (lowercase names).
+videos/Daxuz Pc.mp4
+videos/Fudi Nuevo.mp4
+videos/JVR PC.mp4
+desktop.ini

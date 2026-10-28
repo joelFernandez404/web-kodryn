@@ -121,18 +121,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================================================
-    // MODULE: FLIP CARDS (projects + services)
+    // MODULE: FLIP CARDS (services)
     // Each card flips to show its details. Hover flips it through CSS on
     // pointer devices; a click or tap anywhere on the card (or Enter on its
     // arrow button) toggles .is-flipped, pinning it turned. Only the visible
     // face is exposed to assistive tech and the keyboard.
     // ==========================================================================
     const canHover = window.matchMedia('(hover: hover)');
-    document.querySelectorAll('.project-card, .service-item').forEach((card) => {
-        const front = card.querySelector('.project-front, .service-front');
-        const back = card.querySelector('.project-back, .service-back');
-        const openBtn = front.querySelector('.project-toggle, .service-toggle');
-        const backBtn = back.querySelector('.project-toggle, .service-toggle');
+    document.querySelectorAll('.service-item').forEach((card) => {
+        const front = card.querySelector('.service-front');
+        const back = card.querySelector('.service-back');
+        const openBtn = front.querySelector('.service-toggle');
+        const backBtn = back.querySelector('.service-toggle');
 
         function setFlipped(flipped, moveFocus) {
             card.classList.toggle('is-flipped', flipped);
@@ -161,6 +161,558 @@ document.addEventListener('DOMContentLoaded', () => {
 
         setFlipped(false, false);
     });
+
+    // ==========================================================================
+    // MODULE: PROJECT FINDER
+    // The Productos section is a macOS-Finder-style explorer. PROJECTS is the
+    // single source of content: add a project here and it shows up in its
+    // folder, in Recientes, in search and in Quick Look. Views: 'root'
+    // (folders), 'recent' (every project) and 'folder:<id>', with back /
+    // forward history like a real Finder. Clicking a project opens the Quick
+    // Look <dialog>, which grows out of the clicked thumbnail.
+    // Screenshots: `${image}.jpg` (desktop) and `${image}-movil.jpg` (mobile)
+    // next to index.html; while missing, a CSS mock of the site (.mock--<id>
+    // themes in styles.css) shows instead.
+    // Videos (`video: true`): Quick Look plays `${image}.mp4`, the thumbnail
+    // shows `${image}.jpg` and plays a muted preview on hover (both live in
+    // /videos, compressed for web); while missing, a mock player with the
+    // client's white logo (.vmock--<id>) shows instead.
+    // `status: 'dev'` adds the "En desarrollo" badge. `device: 'mobile'`
+    // opens Quick Look on the phone view (apps).
+    // `url`: the live site; empty sends the visitor to the contact form.
+    // ==========================================================================
+    const finder = document.getElementById('finder');
+    if (finder) {
+        const PROJECTS = [
+            {
+                id: 'leal',
+                name: 'Leal Consultores',
+                folder: 'webs',
+                kind: 'Página web',
+                industry: 'Consultoría empresarial',
+                file: 'leal-consultores',
+                image: 'proyecto-leal',
+                url: '',
+                mock: { logo: 'Leal', eyebrow: 'Consultoría empresarial', title: 'Decisiones claras para crecer.', cta: 'Agenda una consulta', band: 'Hablemos de tu empresa' },
+                title: 'Web corporativa para Leal Consultores',
+                desc: 'Un sitio que presenta los servicios de la firma con claridad y convierte cada visita en una consulta.',
+                list: ['Diseño web a medida y responsive', 'SEO técnico y on-page', 'Formulario de contacto conectado a correo y WhatsApp']
+            },
+            {
+                id: 'glow',
+                name: 'Glow by SE',
+                folder: 'ecommerce',
+                kind: 'E-commerce',
+                industry: 'Belleza y cuidado personal',
+                file: 'glow-by-se',
+                image: 'proyecto-glow',
+                url: '',
+                mock: { logo: 'Glow', eyebrow: 'Skincare & beauty', title: 'Tu piel, tu glow.', cta: 'Comprar ahora', band: 'Envíos a todo el país' },
+                title: 'Tienda online para Glow by SE',
+                desc: 'Catálogo, carrito y pagos en línea para una marca de belleza, lista para vender desde el primer día.',
+                list: ['Catálogo de productos con variantes', 'Checkout y pasarela de pagos', 'Gestión de pedidos e inventario']
+            },
+            {
+                id: 'caserita',
+                name: 'Caserita LATAM',
+                folder: 'webs',
+                kind: 'Página web',
+                industry: 'Startup · 3 países de LATAM',
+                file: 'caserita-latam',
+                image: 'proyecto-caserita',
+                url: '',
+                mock: { logo: 'Caserita', eyebrow: 'Startup LATAM', title: 'Tu tienda de barrio, conectada.', cta: 'Conoce Caserita', band: 'Presentes en 3 países' },
+                title: 'Web para Caserita LATAM',
+                desc: 'El sitio de una startup que opera en 3 países de América Latina: una sola web que presenta la propuesta con claridad en cada mercado.',
+                list: ['Diseño web a medida y responsive', 'Mensaje pensado para 3 mercados de LATAM', 'SEO técnico y formularios conectados']
+            },
+            {
+                id: 'lachacra',
+                name: 'La Chacra App',
+                folder: 'apps',
+                kind: 'App · MVP',
+                industry: 'Microempresa de alimentos',
+                status: 'dev',
+                device: 'mobile',
+                file: 'la-chacra-app',
+                image: 'proyecto-lachacra',
+                url: '',
+                mock: { logo: 'La Chacra', eyebrow: 'Tu negocio, en una app', title: 'Toda la operación en un solo lugar.', cta: 'Nuevo pedido', band: 'Pedidos · Inventario · Ventas' },
+                title: 'App de gestión para La Chacra de la Abuela',
+                desc: 'Una app para la microempresa La Chacra de la Abuela que resuelve y centraliza toda su operación en un solo lugar.',
+                list: ['Toda la operación centralizada en una sola app', 'Diseñada para el día a día del negocio', 'MVP en desarrollo con entregas por etapas']
+            },
+            {
+                id: 'primesport',
+                name: 'Prime Sport',
+                folder: 'apps',
+                kind: 'Sistema · MVP',
+                industry: 'Escuelas de fútbol · Ecuador',
+                status: 'dev',
+                file: 'prime-sport',
+                image: 'proyecto-primesport',
+                url: '',
+                mock: { logo: 'Prime Sport', eyebrow: 'Escuelas de fútbol', title: 'Toda tu academia en un solo panel.', cta: 'Ver jugadores', band: 'Datos centralizados' },
+                title: 'Prime Sport: datos centralizados para escuelas de fútbol',
+                desc: 'Un sistema que centraliza los datos de las escuelas de fútbol en Ecuador, para que directivos y entrenadores trabajen sobre una sola fuente de información.',
+                list: ['Datos de jugadores y equipos en un solo lugar', 'Panel para directivos y entrenadores', 'MVP en desarrollo para escuelas en Ecuador']
+            },
+            {
+                id: 'kopiloto',
+                name: 'Kopiloto',
+                folder: 'ia',
+                kind: 'Automatización IA',
+                industry: 'Ecosistema emprendedor',
+                file: 'kopiloto-matching',
+                image: 'proyecto-kopiloto',
+                url: '',
+                mock: { logo: 'Kopiloto', eyebrow: 'Matching con IA', title: 'El fondo ideal para tu startup.', cta: 'Ver coincidencias', band: '98% de afinidad' },
+                title: 'Matching de fondos para Kopiloto',
+                desc: 'Un flujo automático que cruza el perfil de cada emprendimiento con los fondos y convocatorias disponibles, y sugiere los más afines.',
+                list: ['Carga automática de perfiles y convocatorias', 'Motor de matching con IA', 'Reportes para el equipo de Kopiloto']
+            },
+            {
+                id: 'fudinow',
+                name: 'Fudinow',
+                folder: 'videos',
+                kind: 'Video de lanzamiento IA',
+                industry: 'Startup',
+                video: true,
+                file: 'fudinow-lanzamiento',
+                image: 'videos/fudinow',
+                url: '',
+                mock: { logoImg: 'clientes/fudinow.svg', eyebrow: 'Lanzamiento de producto' },
+                title: 'Lanzamiento de Fudinow con IA',
+                desc: 'Video de lanzamiento y motion graphics creados con IA para presentar el producto de Fudinow.',
+                list: ['Guion y narrativa del lanzamiento', 'Motion graphics generados con IA', 'Versiones para redes y web']
+            },
+            {
+                id: 'jvr',
+                name: 'JVR Connect',
+                folder: 'videos',
+                kind: 'Video de lanzamiento IA',
+                industry: 'Startup',
+                video: true,
+                file: 'jvr-connect-lanzamiento',
+                image: 'videos/jvr',
+                url: '',
+                mock: { logoImg: 'clientes/jvr.svg', logo: 'JVR Connect', eyebrow: 'Lanzamiento de la startup' },
+                title: 'Lanzamiento de JVR Connect con IA',
+                desc: 'Video de lanzamiento y motion graphics creados con IA para presentar la startup JVR Connect.',
+                list: ['Guion y narrativa del lanzamiento', 'Motion graphics generados con IA', 'Versiones para redes y web']
+            },
+            {
+                id: 'daxuz',
+                name: 'Daxuz',
+                folder: 'videos',
+                kind: 'Video de lanzamiento IA',
+                industry: 'Startup',
+                video: true,
+                file: 'daxuz-lanzamiento',
+                image: 'videos/daxuz',
+                url: '',
+                mock: { logoImg: 'clientes/daxuz.png', eyebrow: 'Lanzamiento de producto' },
+                title: 'Lanzamiento de Daxuz con IA',
+                desc: 'Video de lanzamiento y motion graphics creados con IA para presentar el producto de Daxuz.',
+                list: ['Guion y narrativa del lanzamiento', 'Motion graphics generados con IA', 'Versiones para redes y web']
+            }
+        ];
+        const FOLDERS = [
+            { id: 'webs', name: 'Webs' },
+            { id: 'ecommerce', name: 'E-commerce' },
+            { id: 'apps', name: 'Apps & MVPs' },
+            { id: 'ia', name: 'Automatizaciones IA' },
+            { id: 'videos', name: 'Lanzamientos IA' }
+        ];
+        const VIEW_NAMES = { root: 'Proyectos', recent: 'Recientes' };
+
+        const content = document.getElementById('finder-content');
+        const titleEl = document.getElementById('finder-title');
+        const pathEl = document.getElementById('finder-path');
+        const countEl = document.getElementById('finder-count');
+        const backBtn = document.getElementById('finder-back');
+        const fwdBtn = document.getElementById('finder-forward');
+        const search = document.getElementById('finder-search');
+        const sideItems = finder.querySelectorAll('.finder-side-item[data-view]');
+        const modeBtns = finder.querySelectorAll('[data-mode]');
+        const calm = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+        const state = { view: 'root', mode: 'grid', query: '' };
+        const past = [];
+        const future = [];
+        const missing = new Set(); // screenshot files that 404'd, so re-renders skip them
+
+        const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+        const plural = (n) => `${n} ${n === 1 ? 'ítem' : 'ítems'}`;
+        const folderName = (id) => (FOLDERS.find((f) => f.id === id) || {}).name || '';
+        const viewName = (view) => VIEW_NAMES[view] || folderName(view.replace('folder:', ''));
+        const ICON_PLUS = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>';
+        const ICON_PLAY = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" /></svg>';
+        const badgeHTML = (p) => (p.status === 'dev' ? '<span class="fi-badge">En desarrollo</span>' : '');
+
+        // Screenshots / videos that failed to load are removed and
+        // remembered; the mock underneath stays visible.
+        const onImgError = (e) => {
+            if (!['IMG', 'VIDEO'].includes(e.target.tagName) || !e.target.closest('.shot')) return;
+            missing.add(e.target.getAttribute('src'));
+            e.target.remove();
+        };
+
+        // Mock video player: the client's white logo over a branded
+        // backdrop, with a play button and a progress bar.
+        function vmockHTML(p) {
+            const m = p.mock;
+            return `<span class="vmock vmock--${p.id}">
+                <i class="vmock-grid"></i>
+                <span class="vmock-center">
+                    <img class="vmock-logo" src="${m.logoImg}" alt="">
+                    ${m.logo ? `<b class="vmock-name">${esc(m.logo)}</b>` : ''}
+                    <i class="vmock-tag">${esc(m.eyebrow)}</i>
+                </span>
+                <span class="vmock-play">${ICON_PLAY}</span>
+                <span class="vmock-bar"><i></i></span>
+            </span>`;
+        }
+
+        function mockHTML(p, mobile) {
+            if (p.video) return vmockHTML(p);
+            const m = p.mock;
+            return `<span class="mock mock--${p.id}${mobile ? ' mock--mobile' : ''}">
+                <span class="mock-nav"><b class="mock-logo">${esc(m.logo)}</b><span class="mock-links"><i></i><i></i><i></i></span><i class="mock-pill"></i></span>
+                <span class="mock-hero">
+                    <span><i class="mock-eyebrow">${esc(m.eyebrow)}</i><b class="mock-title">${esc(m.title)}</b><span class="mock-lines"><i></i><i></i><i></i></span><b class="mock-btn">${esc(m.cta)}</b></span>
+                    <i class="mock-art"></i>
+                </span>
+                <span class="mock-cards"><i></i><i></i><i></i></span>
+                <b class="mock-band">${esc(m.band)}</b>
+                <span class="mock-cards mock-cards--alt"><i></i><i></i></span>
+                <i class="mock-foot"></i>
+            </span>`;
+        }
+
+        // variant: 'thumb' | 'desktop' | 'mobile' | 'video'
+        function shotHTML(p, variant) {
+            if (variant === 'video') {
+                const src = `${p.image}.mp4`;
+                const video = missing.has(src) ? '' : `<video src="${src}" poster="${p.image}.jpg" autoplay muted loop playsinline controls preload="auto"></video>`;
+                return `<span class="shot shot--video">${vmockHTML(p)}${video}</span>`;
+            }
+            const src = `${p.image}${variant === 'mobile' ? '-movil' : ''}.jpg`;
+            const img = missing.has(src) ? '' : `<img src="${src}" alt="" decoding="async"${variant === 'thumb' ? ' loading="lazy"' : ''}>`;
+            const preview = p.video && variant === 'thumb' && !missing.has(`${p.image}.mp4`)
+                ? `<video class="shot-preview" src="${p.image}.mp4" muted loop playsinline preload="none"></video>`
+                : '';
+            return `<span class="shot shot--${variant}">${mockHTML(p, variant === 'mobile')}${img}${preview}</span>`;
+        }
+
+        function folderHTML(folderId) {
+            const first = PROJECTS.find((p) => p.folder === folderId);
+            return `<span class="folder${first ? '' : ' folder--empty'}" aria-hidden="true">
+                <span class="folder-back"></span>
+                <span class="folder-paper">${first ? shotHTML(first, 'thumb') : ''}</span>
+                <span class="folder-front"></span>
+            </span>`;
+        }
+
+        function itemsFor() {
+            const q = state.query.toLowerCase();
+            if (q) {
+                return PROJECTS
+                    .filter((p) => [p.name, p.kind, p.industry, folderName(p.folder)].join(' ').toLowerCase().includes(q))
+                    .map((p) => ({ type: 'project', p }));
+            }
+            if (state.view === 'root') return [...FOLDERS.map((f) => ({ type: 'folder', f })), { type: 'new' }];
+            if (state.view === 'recent') return [...PROJECTS.map((p) => ({ type: 'project', p })), { type: 'new' }];
+            const id = state.view.replace('folder:', '');
+            return PROJECTS.filter((p) => p.folder === id).map((p) => ({ type: 'project', p }));
+        }
+
+        function gridItem(item) {
+            if (item.type === 'folder') {
+                const n = PROJECTS.filter((p) => p.folder === item.f.id).length;
+                return `<button class="fi fi--folder" type="button" data-open="folder:${item.f.id}">
+                    <span class="fi-media">${folderHTML(item.f.id)}</span>
+                    <span class="fi-name">${esc(item.f.name)}</span><span class="fi-sub">${plural(n)}</span>
+                </button>`;
+            }
+            if (item.type === 'new') {
+                return `<a class="fi fi--new" href="#contact">
+                    <span class="fi-media"><span class="fi-thumb fi-thumb--new">${ICON_PLUS}</span></span>
+                    <span class="fi-name">Tu proyecto</span><span class="fi-sub">Hablemos →</span>
+                </a>`;
+            }
+            const p = item.p;
+            return `<button class="fi fi--project" type="button" data-project="${p.id}" aria-label="Abrir ${esc(p.name)}">
+                <span class="fi-media"><span class="fi-thumb">${shotHTML(p, 'thumb')}${badgeHTML(p)}</span></span>
+                <span class="fi-name">${esc(p.name)}</span><span class="fi-sub">${esc(p.kind)}</span>
+            </button>`;
+        }
+
+        function listItem(item) {
+            if (item.type === 'folder') {
+                const n = PROJECTS.filter((p) => p.folder === item.f.id).length;
+                return `<button class="fr" type="button" data-open="folder:${item.f.id}">
+                    <span class="fr-name"><span class="fr-icon fr-icon--plain">${folderHTML(item.f.id)}</span><span>${esc(item.f.name)}</span></span>
+                    <span class="fr-cell">Carpeta</span><span class="fr-cell">${plural(n)}</span>
+                </button>`;
+            }
+            if (item.type === 'new') {
+                return `<a class="fr" href="#contact">
+                    <span class="fr-name"><span class="fr-icon fr-icon--new">${ICON_PLUS}</span><span>Tu proyecto</span></span>
+                    <span class="fr-cell">Hablemos →</span><span class="fr-cell"></span>
+                </a>`;
+            }
+            const p = item.p;
+            return `<button class="fr" type="button" data-project="${p.id}" aria-label="Abrir ${esc(p.name)}">
+                <span class="fr-name"><span class="fr-icon">${shotHTML(p, 'thumb')}</span><span>${esc(p.name)}</span>${badgeHTML(p)}</span>
+                <span class="fr-cell">${esc(p.kind)}</span><span class="fr-cell">${esc(p.industry)}</span>
+            </button>`;
+        }
+
+        function render() {
+            const items = itemsFor();
+            const isList = state.mode === 'list';
+            content.classList.toggle('is-list', isList);
+
+            let html = items.map((item, i) => `<li style="--i:${i}">${isList ? listItem(item) : gridItem(item)}</li>`).join('');
+            if (isList && items.length) {
+                html = `<li class="fr-head" aria-hidden="true"><span>Nombre</span><span>Tipo</span><span>Detalle</span></li>${html}`;
+            }
+            if (!items.length) {
+                html = `<li class="finder-empty">No hay proyectos que coincidan con “${esc(state.query)}”.</li>`;
+            }
+            content.innerHTML = html;
+
+            // Title, sidebar selection, history buttons
+            titleEl.textContent = state.query ? `Buscar: “${state.query}”` : viewName(state.view);
+            sideItems.forEach((el) => {
+                const active = !state.query && el.dataset.view === state.view;
+                el.classList.toggle('is-active', active);
+                if (active) el.setAttribute('aria-current', 'page'); else el.removeAttribute('aria-current');
+            });
+            backBtn.disabled = !past.length;
+            fwdBtn.disabled = !future.length;
+
+            // Breadcrumb: kodryn.dev > Proyectos > <folder>
+            const crumbs = [{ label: 'kodryn.dev' }];
+            if (state.query) {
+                crumbs.push({ label: 'Búsqueda' });
+            } else if (state.view === 'recent') {
+                crumbs.push({ label: 'Recientes' });
+            } else {
+                crumbs.push({ label: 'Proyectos', view: state.view === 'root' ? null : 'root' });
+                if (state.view !== 'root') crumbs.push({ label: viewName(state.view) });
+            }
+            pathEl.innerHTML = crumbs.map((c, i) => {
+                const last = i === crumbs.length - 1;
+                const cls = `finder-crumb${c.view ? ' is-link' : ''}`;
+                const crumb = c.view
+                    ? `<button type="button" class="${cls}" data-open="${c.view}">${esc(c.label)}</button>`
+                    : `<span class="${cls}"${last ? ' aria-current="page"' : ''}>${esc(c.label)}</span>`;
+                return i ? `<span class="finder-sep" aria-hidden="true">›</span>${crumb}` : crumb;
+            }).join('');
+
+            countEl.textContent = plural(items.filter((item) => item.type !== 'new').length);
+        }
+
+        function go(view) {
+            if (view === state.view && !state.query) return;
+            past.push(state.view);
+            future.length = 0;
+            state.view = view;
+            state.query = '';
+            search.value = '';
+            render();
+        }
+
+        function step(from, to) {
+            if (!from.length) return;
+            to.push(state.view);
+            state.view = from.pop();
+            state.query = '';
+            search.value = '';
+            render();
+        }
+
+        sideItems.forEach((el) => el.addEventListener('click', () => go(el.dataset.view)));
+        backBtn.addEventListener('click', () => step(past, future));
+        fwdBtn.addEventListener('click', () => step(future, past));
+
+        modeBtns.forEach((btn) => btn.addEventListener('click', () => {
+            if (state.mode === btn.dataset.mode) return;
+            state.mode = btn.dataset.mode;
+            modeBtns.forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+            render();
+        }));
+
+        search.addEventListener('input', () => {
+            state.query = search.value.trim();
+            render();
+        });
+
+        // Folders / crumbs navigate, projects open Quick Look.
+        finder.addEventListener('click', (e) => {
+            const opener = e.target.closest('[data-open]');
+            if (opener) return go(opener.dataset.open);
+            const projectBtn = e.target.closest('[data-project]');
+            if (projectBtn) openQuickLook(PROJECTS.find((p) => p.id === projectBtn.dataset.project), projectBtn);
+        });
+
+        finder.addEventListener('error', onImgError, true);
+
+        // Video thumbnails play a muted preview while hovered (pointer
+        // devices, motion allowed); the poster shows again on leave.
+        if (canHover.matches && !calm.matches) {
+            finder.addEventListener('mouseover', (e) => {
+                const tile = e.target.closest('.fi');
+                const preview = tile && tile.querySelector('.shot-preview');
+                if (preview && preview.paused) preview.play().catch(() => {});
+            });
+            finder.addEventListener('mouseout', (e) => {
+                const tile = e.target.closest('.fi');
+                if (!tile || tile.contains(e.relatedTarget)) return;
+                const preview = tile.querySelector('.shot-preview');
+                if (preview) preview.pause();
+            });
+        }
+
+        // ---- Quick Look ---------------------------------------------------
+        const ql = document.getElementById('quicklook');
+        const qlWindow = ql.querySelector('.ql-window');
+        const qlFrame = document.getElementById('ql-frame');
+        const qlFile = document.getElementById('ql-file');
+        const qlInfoBtn = document.getElementById('ql-info-toggle');
+        const qlOpenIcon = document.getElementById('ql-open-icon');
+        const qlCta = document.getElementById('ql-cta');
+        const deviceBtns = ql.querySelectorAll('[data-device]');
+        const EASE = 'cubic-bezier(0.16, 1, 0.3, 1)';
+        let qlProject = null;
+        let qlOrigin = null;
+        let qlDevice = 'desktop';
+        let closing = false;
+
+        ql.addEventListener('error', onImgError, true);
+
+        function fillFrame() {
+            const p = qlProject;
+            qlFile.textContent = p.video ? `${p.file}.mp4` : `${p.file}-${qlDevice === 'mobile' ? 'movil' : 'escritorio'}.png`;
+            qlFrame.innerHTML = shotHTML(p, p.video ? 'video' : qlDevice);
+            ql.classList.toggle('is-video', Boolean(p.video));
+            ql.classList.toggle('is-mobile', !p.video && qlDevice === 'mobile');
+            deviceBtns.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.device === qlDevice)));
+            ql.querySelector('.ql-stage').scrollTop = 0;
+        }
+
+        // Where the window flies from / back to: the clicked thumbnail.
+        function originTransform() {
+            const from = qlOrigin && qlOrigin.isConnected && (qlOrigin.querySelector('.fi-thumb, .fr-icon') || qlOrigin);
+            if (!from) return 'translateY(24px) scale(0.92)';
+            const a = from.getBoundingClientRect();
+            const b = qlWindow.getBoundingClientRect();
+            const dx = (a.left + a.width / 2) - (b.left + b.width / 2);
+            const dy = (a.top + a.height / 2) - (b.top + b.height / 2);
+            return `translate(${dx}px, ${dy}px) scale(${Math.max(a.width / b.width, 0.06)})`;
+        }
+
+        function openQuickLook(p, origin) {
+            if (!p) return;
+            qlProject = p;
+            qlOrigin = origin;
+            qlDevice = p.device || 'desktop';
+            fillFrame();
+
+            document.getElementById('ql-kicker').innerHTML = `${esc(p.kind)}${p.status === 'dev' ? ' <span class="fi-badge fi-badge--inline">En desarrollo</span>' : ''}`;
+            document.getElementById('ql-name').textContent = p.name;
+            document.getElementById('ql-industry').textContent = p.industry;
+            document.getElementById('ql-desc').textContent = p.desc;
+            document.getElementById('ql-list').innerHTML = p.list.map((li) => `<li>${esc(li)}</li>`).join('');
+            const href = p.url || '#contact';
+            const external = Boolean(p.url);
+            [qlCta, qlOpenIcon].forEach((a) => {
+                a.href = href;
+                if (external) { a.target = '_blank'; a.rel = 'noopener'; } else { a.removeAttribute('target'); a.removeAttribute('rel'); }
+            });
+            document.getElementById('ql-cta-label').textContent = external ? 'Ver sitio' : 'Quiero algo así';
+            qlOpenIcon.setAttribute('aria-label', external ? `Abrir ${p.name} en una pestaña nueva` : 'Ir al formulario de contacto');
+
+            document.documentElement.classList.add('ql-lock');
+            ql.showModal();
+            closing = false;
+
+            if (calm.matches) {
+                ql.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 180 });
+                return;
+            }
+            ql.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 350, easing: 'ease-out' });
+            qlWindow.animate(
+                [{ transform: originTransform(), opacity: 0.2, borderRadius: '6px' }, { transform: 'none', opacity: 1, borderRadius: '20px' }],
+                { duration: 620, easing: EASE }
+            );
+        }
+
+        function closeQuickLook() {
+            if (!ql.open || closing) return Promise.resolve();
+            closing = true;
+            const done = () => {
+                qlFrame.querySelectorAll('video').forEach((v) => v.pause());
+                ql.close();
+                document.documentElement.classList.remove('ql-lock');
+                closing = false;
+                if (qlOrigin && qlOrigin.isConnected) qlOrigin.focus({ preventScroll: true });
+            };
+            if (calm.matches) { done(); return Promise.resolve(); }
+            const fade = ql.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 380, easing: 'ease-in', fill: 'forwards' });
+            qlWindow.animate(
+                [{ transform: 'none', opacity: 1 }, { transform: originTransform(), opacity: 0 }],
+                { duration: 420, easing: 'cubic-bezier(0.7, 0, 0.84, 0)', fill: 'forwards' }
+            );
+            return fade.finished.then(() => {
+                done();
+                fade.cancel();
+                qlWindow.getAnimations().forEach((a) => a.cancel());
+            });
+        }
+
+        // Esc animates out instead of snapping shut; so does a click on the
+        // backdrop or the red light.
+        ql.addEventListener('cancel', (e) => { e.preventDefault(); closeQuickLook(); });
+        ql.addEventListener('click', (e) => {
+            if (e.target === ql || e.target.closest('[data-ql-close]')) closeQuickLook();
+        });
+
+        deviceBtns.forEach((btn) => btn.addEventListener('click', () => {
+            if (qlDevice === btn.dataset.device) return;
+            qlDevice = btn.dataset.device;
+            fillFrame();
+            if (!calm.matches) {
+                qlFrame.animate([{ opacity: 0, transform: 'translateY(12px)' }, { opacity: 1, transform: 'none' }], { duration: 450, easing: EASE });
+            }
+        }));
+
+        qlInfoBtn.addEventListener('click', () => {
+            const hidden = ql.classList.toggle('is-noinfo');
+            qlInfoBtn.setAttribute('aria-pressed', String(!hidden));
+            qlInfoBtn.setAttribute('aria-label', hidden ? 'Mostrar información' : 'Ocultar información');
+        });
+
+        // In-page links (no live URL yet) close the window, then scroll.
+        [qlCta, qlOpenIcon].forEach((a) => a.addEventListener('click', (e) => {
+            if (a.getAttribute('href') !== '#contact') return;
+            e.preventDefault();
+            closeQuickLook().then(() => document.getElementById('contact').scrollIntoView({ behavior: calm.matches ? 'auto' : 'smooth' }));
+        }));
+
+        // First render waits until the window scrolls into view so the
+        // cascade is actually seen.
+        render();
+        const finderObserver = new IntersectionObserver((entries) => {
+            if (entries.some((entry) => entry.isIntersecting)) {
+                render();
+                finderObserver.disconnect();
+            }
+        }, { threshold: 0.25 });
+        finderObserver.observe(finder);
+    }
 
     // ==========================================================================
     // MODULE: MOBILE MENU

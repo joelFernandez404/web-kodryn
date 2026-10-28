@@ -14,7 +14,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:ital,wght@1,500&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:ital,wght@1,500&family=Caveat:wght@600;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <script src="image-slot.js"></script>
@@ -417,159 +417,217 @@
             </div>
         </section>
 
-        <!-- Products Section: grid of shipped projects. Each card flips (hover
-             on pointer devices, click/tap or Enter anywhere) to show the
-             project details on its back (see MODULE: PROJECT CARDS in app.js).
-             SCREENSHOTS: drop a real capture of each project next to
-             index.html with the file name used in its <img> (proyecto-leal.jpg,
-             proyecto-glow.jpg, proyecto-kopiloto.jpg; about 1600x1000). Until
-             the file exists the img removes itself and the typographic
-             poster underneath shows instead.
-             COPY: the back-side descriptions are drafts; confirm them with
-             each client before publishing. -->
+        <!-- Products Section: a macOS-Finder-style explorer of shipped
+             projects. Sidebar (favourites / folders), toolbar with history,
+             grid/list toggle and search, and a status bar with breadcrumb.
+             Clicking a project opens a Quick Look window (desktop / mobile
+             preview + info panel). Contents are rendered from the PROJECTS
+             list in app.js (see MODULE: PROJECT FINDER).
+             SCREENSHOTS: drop full-page captures next to index.html named
+             after each project's `image` key: proyecto-leal.jpg (desktop,
+             ~1440px wide) and proyecto-leal-movil.jpg (mobile, ~390px wide).
+             Videos: proyecto-fudinow.mp4 (+ .jpg as thumbnail poster).
+             Until a file exists, a CSS mock of the site shows instead. -->
         <section class="products-section" id="products">
             <div class="container">
-                <h2 class="projects-title reveal-on-scroll">Proyectos construidos con <em>Kodryn.</em></h2>
-
-                <div class="projects-grid">
-                    <!-- Project 1 -->
-                    <article class="project-card reveal-on-scroll">
-                        <div class="project-inner">
-                            <div class="project-face project-front">
-                                <div class="project-media">
-                                    <div class="project-poster" aria-hidden="true">
-                                        <span class="project-poster-name">Leal Consultores</span>
-                                    </div>
-                                    <img src="proyecto-leal.jpg" alt="Sitio web de Leal Consultores" loading="lazy"
-                                        decoding="async" onerror="this.remove()">
-                                </div>
-                                <div class="project-footer">
-                                    <div>
-                                        <h3 class="project-name">Leal Consultores</h3>
-                                        <p class="project-type">Página web</p>
-                                    </div>
-                                    <button class="project-toggle" type="button" aria-expanded="false"
-                                        aria-label="Ver detalles de Leal Consultores">
-                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                                            <path d="M7 17 17 7M8 7h9v9" />
-                                        </svg>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="project-face project-back" aria-hidden="true">
-                                <p class="project-type">Página web</p>
-                                <h3 class="project-back-title">Web corporativa para Leal Consultores</h3>
-                                <p class="project-desc">Un sitio que presenta los servicios de la firma con claridad y
-                                    convierte cada visita en una consulta.</p>
-                                <ul class="project-list">
-                                    <li>Diseño web a medida y responsive</li>
-                                    <li>SEO técnico y on-page</li>
-                                    <li>Formulario de contacto conectado a correo y WhatsApp</li>
-                                </ul>
-                                <button class="project-toggle project-toggle--back" type="button"
-                                    aria-label="Volver a la portada de Leal Consultores">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                                        <path d="M17 7 7 17M16 17H7V8" />
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
-                    </article>
-
-                    <!-- Project 2 -->
-                    <article class="project-card reveal-on-scroll">
-                        <div class="project-inner">
-                            <div class="project-face project-front">
-                                <div class="project-media">
-                                    <div class="project-poster" aria-hidden="true">
-                                        <span class="project-poster-name">Glow by SE</span>
-                                    </div>
-                                    <img src="proyecto-glow.jpg" alt="Tienda online de Glow by SE" loading="lazy"
-                                        decoding="async" onerror="this.remove()">
-                                </div>
-                                <div class="project-footer">
-                                    <div>
-                                        <h3 class="project-name">Glow by SE</h3>
-                                        <p class="project-type">E-commerce</p>
-                                    </div>
-                                    <button class="project-toggle" type="button" aria-expanded="false"
-                                        aria-label="Ver detalles de Glow by SE">
-                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                                            <path d="M7 17 17 7M8 7h9v9" />
-                                        </svg>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="project-face project-back" aria-hidden="true">
-                                <p class="project-type">E-commerce</p>
-                                <h3 class="project-back-title">Tienda online para Glow by SE</h3>
-                                <p class="project-desc">Catálogo, carrito y pagos en línea para una marca de belleza,
-                                    lista para vender desde el primer día.</p>
-                                <ul class="project-list">
-                                    <li>Catálogo de productos con variantes</li>
-                                    <li>Checkout y pasarela de pagos</li>
-                                    <li>Gestión de pedidos e inventario</li>
-                                </ul>
-                                <button class="project-toggle project-toggle--back" type="button"
-                                    aria-label="Volver a la portada de Glow by SE">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                                        <path d="M17 7 7 17M16 17H7V8" />
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
-                    </article>
-
-                    <!-- Project 3 (full width) -->
-                    <article class="project-card project-card--wide reveal-on-scroll">
-                        <div class="project-inner">
-                            <div class="project-face project-front">
-                                <div class="project-media">
-                                    <div class="project-poster" aria-hidden="true">
-                                        <span class="project-poster-name">Kopiloto</span>
-                                    </div>
-                                    <img src="proyecto-kopiloto.jpg" alt="Automatización de matching de fondos para Kopiloto"
-                                        loading="lazy" decoding="async" onerror="this.remove()">
-                                </div>
-                                <div class="project-footer">
-                                    <div>
-                                        <h3 class="project-name">Kopiloto</h3>
-                                        <p class="project-type">Automatización IA</p>
-                                    </div>
-                                    <button class="project-toggle" type="button" aria-expanded="false"
-                                        aria-label="Ver detalles de Kopiloto">
-                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                                            <path d="M7 17 17 7M8 7h9v9" />
-                                        </svg>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="project-face project-back" aria-hidden="true">
-                                <p class="project-type">Automatización IA</p>
-                                <h3 class="project-back-title">Matching de fondos para Kopiloto</h3>
-                                <p class="project-desc">Un flujo automático que cruza el perfil de cada emprendimiento con
-                                    los fondos y convocatorias disponibles, y sugiere los más afines.</p>
-                                <ul class="project-list">
-                                    <li>Carga automática de perfiles y convocatorias</li>
-                                    <li>Motor de matching con IA</li>
-                                    <li>Reportes para el equipo de Kopiloto</li>
-                                </ul>
-                                <button class="project-toggle project-toggle--back" type="button"
-                                    aria-label="Volver a la portada de Kopiloto">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                                        <path d="M17 7 7 17M16 17H7V8" />
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
-                    </article>
+                <div class="projects-head reveal-on-scroll">
+                    <h2 class="projects-title">Proyectos construidos con <em>Kodryn.</em></h2>
+                    <span class="projects-sticker" aria-hidden="true">ábrelos como en tu Mac</span>
                 </div>
+
+                <div class="finder reveal-on-scroll" id="finder">
+                    <aside class="finder-sidebar" aria-label="Carpetas de proyectos">
+                        <div class="finder-lights" aria-hidden="true"><span></span><span></span><span></span></div>
+
+                        <p class="finder-group">Favoritos</p>
+                        <button class="finder-side-item" type="button" data-view="recent">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></svg>
+                            Recientes
+                        </button>
+                        <button class="finder-side-item" type="button" data-view="root">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10.5 12 4l8 6.5V20h-5.5v-5.5h-5V20H4z" /></svg>
+                            Proyectos
+                        </button>
+
+                        <p class="finder-group">Carpetas</p>
+                        <button class="finder-side-item" type="button" data-view="folder:webs">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 7.5a2 2 0 0 1 2-2h4l2 2h7a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2z" /></svg>
+                            Webs
+                        </button>
+                        <button class="finder-side-item" type="button" data-view="folder:ecommerce">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 7.5a2 2 0 0 1 2-2h4l2 2h7a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2z" /></svg>
+                            E-commerce
+                        </button>
+                        <button class="finder-side-item" type="button" data-view="folder:apps">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 7.5a2 2 0 0 1 2-2h4l2 2h7a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2z" /></svg>
+                            Apps &amp; MVPs
+                        </button>
+                        <button class="finder-side-item" type="button" data-view="folder:ia">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 7.5a2 2 0 0 1 2-2h4l2 2h7a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2z" /></svg>
+                            Automatizaciones IA
+                        </button>
+                        <button class="finder-side-item" type="button" data-view="folder:videos">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 7.5a2 2 0 0 1 2-2h4l2 2h7a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2z" /></svg>
+                            Lanzamientos IA
+                        </button>
+
+                        <p class="finder-group">Ubicaciones</p>
+                        <a class="finder-side-item" href="#hero">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M3 12h18M12 3c2.5 2.6 3.7 5.6 3.7 9s-1.2 6.4-3.7 9c-2.5-2.6-3.7-5.6-3.7-9S9.5 5.6 12 3z" /></svg>
+                            kodryn.dev
+                        </a>
+                    </aside>
+
+                    <div class="finder-main">
+                        <div class="finder-toolbar">
+                            <div class="finder-pill finder-history">
+                                <button type="button" id="finder-back" aria-label="Atrás" disabled>
+                                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14.5 6-6 6 6 6" /></svg>
+                                </button>
+                                <button type="button" id="finder-forward" aria-label="Adelante" disabled>
+                                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9.5 6 6 6-6 6" /></svg>
+                                </button>
+                            </div>
+                            <h3 class="finder-title" id="finder-title" aria-live="polite">Proyectos</h3>
+                            <div class="finder-pill finder-modes" role="group" aria-label="Vista">
+                                <button type="button" data-mode="grid" aria-pressed="true" aria-label="Ver como íconos">
+                                    <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4.5" y="4.5" width="6" height="6" rx="1.4" /><rect x="13.5" y="4.5" width="6" height="6" rx="1.4" /><rect x="4.5" y="13.5" width="6" height="6" rx="1.4" /><rect x="13.5" y="13.5" width="6" height="6" rx="1.4" /></svg>
+                                </button>
+                                <button type="button" data-mode="list" aria-pressed="false" aria-label="Ver como lista">
+                                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6.5h11M9 12h11M9 17.5h11" /><circle cx="5" cy="6.5" r=".6" /><circle cx="5" cy="12" r=".6" /><circle cx="5" cy="17.5" r=".6" /></svg>
+                                </button>
+                            </div>
+                            <label class="finder-pill finder-search">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5" /><path d="m16 16 4 4" /></svg>
+                                <input type="search" id="finder-search" placeholder="Buscar" aria-label="Buscar proyectos" autocomplete="off">
+                            </label>
+                        </div>
+
+                        <ul class="finder-content" id="finder-content"></ul>
+
+                        <div class="finder-status">
+                            <nav class="finder-path" id="finder-path" aria-label="Ruta"></nav>
+                            <span class="finder-count" id="finder-count"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Look window, filled by app.js for the clicked project. -->
+            <dialog class="quicklook" id="quicklook" aria-labelledby="ql-name">
+                <div class="ql-window">
+                    <header class="ql-bar">
+                        <div class="ql-lights">
+                            <button type="button" class="ql-light ql-light--close" data-ql-close aria-label="Cerrar vista previa"></button>
+                            <span class="ql-light ql-light--min" aria-hidden="true"></span>
+                            <span class="ql-light ql-light--max" aria-hidden="true"></span>
+                        </div>
+                        <span class="ql-file" id="ql-file"></span>
+                        <div class="ql-actions">
+                            <div class="finder-pill" role="group" aria-label="Dispositivo">
+                                <button type="button" data-device="desktop" aria-pressed="true" aria-label="Vista escritorio">
+                                    <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="11.5" rx="1.8" /><path d="M9 20h6M12 16v4" /></svg>
+                                </button>
+                                <button type="button" data-device="mobile" aria-pressed="false" aria-label="Vista móvil">
+                                    <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="3" width="10" height="18" rx="2.4" /><path d="M11 18h2" /></svg>
+                                </button>
+                            </div>
+                            <div class="finder-pill">
+                                <button type="button" id="ql-info-toggle" aria-pressed="true" aria-label="Mostrar información">
+                                    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M12 11v5.5M12 7.6v.1" /></svg>
+                                </button>
+                                <a id="ql-open-icon" href="#contact" aria-label="Abrir proyecto">
+                                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" /></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </header>
+
+                    <div class="ql-body">
+                        <div class="ql-stage">
+                            <div class="ql-frame" id="ql-frame"></div>
+                        </div>
+                        <aside class="ql-info">
+                            <p class="ql-kicker" id="ql-kicker"></p>
+                            <h3 class="ql-name" id="ql-name"></h3>
+                            <p class="ql-industry" id="ql-industry"></p>
+                            <p class="ql-desc" id="ql-desc"></p>
+                            <ul class="ql-list" id="ql-list"></ul>
+                            <a class="ql-cta" id="ql-cta" href="#contact">
+                                <span id="ql-cta-label">Quiero algo así</span>
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" /></svg>
+                            </a>
+                        </aside>
+                    </div>
+                </div>
+            </dialog>
+        </section>
+
+        <!-- Clients Section: social proof right after the projects. An
+             endless marquee of client logos (white PNG/SVG in /clientes,
+             never pauses, static under reduced motion) and, below it, the
+             countries Kodryn has exported services to as a second marquee of
+             round flags (/banderas). To add a client, copy one
+             <li> into BOTH tracks; the second is the visual loop copy. -->
+        <section class="clients-section" id="clients" aria-labelledby="clients-title">
+            <div class="container">
+                <h2 class="clients-title reveal-on-scroll" id="clients-title">Empresas que han <em>confiado</em> en nosotros</h2>
+            </div>
+
+            <div class="clients-marquee reveal-on-scroll">
+                <ul class="clients-track">
+                    <li><img src="clientes/leal.png" alt="Leal Consultores" class="client-logo client-logo--mark" width="224" height="240" loading="lazy" decoding="async"></li>
+                    <li><img src="clientes/daxuz.png" alt="Daxuz" class="client-logo client-logo--word" width="769" height="240" loading="lazy" decoding="async"></li>
+                    <li><img src="clientes/glow.png" alt="Glow by SE" class="client-logo client-logo--badge" width="323" height="240" loading="lazy" decoding="async"></li>
+                    <li><img src="clientes/fudinow.svg" alt="Fudinow" class="client-logo client-logo--word" width="1639" height="341" loading="lazy" decoding="async"></li>
+                    <li><img src="clientes/caserita.png" alt="Caserita" class="client-logo client-logo--mark" width="188" height="201" loading="lazy" decoding="async"></li>
+                    <li><img src="clientes/la-chacra.png" alt="La Chacra de la Abuela" class="client-logo client-logo--badge" width="600" height="589" loading="lazy" decoding="async"></li>
+                    <li><img src="clientes/jvr.svg" alt="JVR" class="client-logo client-logo--mark" width="38" height="39" loading="lazy" decoding="async"></li>
+                </ul>
+                <ul class="clients-track" aria-hidden="true">
+                    <li><img src="clientes/leal.png" alt="" class="client-logo client-logo--mark" width="224" height="240" loading="lazy" decoding="async"></li>
+                    <li><img src="clientes/daxuz.png" alt="" class="client-logo client-logo--word" width="769" height="240" loading="lazy" decoding="async"></li>
+                    <li><img src="clientes/glow.png" alt="" class="client-logo client-logo--badge" width="323" height="240" loading="lazy" decoding="async"></li>
+                    <li><img src="clientes/fudinow.svg" alt="" class="client-logo client-logo--word" width="1639" height="341" loading="lazy" decoding="async"></li>
+                    <li><img src="clientes/caserita.png" alt="" class="client-logo client-logo--mark" width="188" height="201" loading="lazy" decoding="async"></li>
+                    <li><img src="clientes/la-chacra.png" alt="" class="client-logo client-logo--badge" width="600" height="589" loading="lazy" decoding="async"></li>
+                    <li><img src="clientes/jvr.svg" alt="" class="client-logo client-logo--mark" width="38" height="39" loading="lazy" decoding="async"></li>
+                </ul>
+            </div>
+
+            <!-- Countries we have exported services to: endless marquee of
+                 round flags, running the opposite way to the logos. Each
+                 track holds the list twice so it spans wide screens. -->
+            <p class="flags-label reveal-on-scroll">Países a los que hemos exportado servicios</p>
+            <div class="flags-marquee reveal-on-scroll">
+                <ul class="flags-track">
+                    <li><img src="banderas/ec.svg" alt="Ecuador" title="Ecuador" class="flag-dot" width="30" height="20" loading="lazy" decoding="async"></li>
+                    <li><img src="banderas/pe.svg" alt="Perú" title="Perú" class="flag-dot" width="30" height="20" loading="lazy" decoding="async"></li>
+                    <li><img src="banderas/ve.svg" alt="Venezuela" title="Venezuela" class="flag-dot" width="30" height="20" loading="lazy" decoding="async"></li>
+                    <li><img src="banderas/mx.svg" alt="México" title="México" class="flag-dot" width="30" height="20" loading="lazy" decoding="async"></li>
+                    <li><img src="banderas/co.svg" alt="Colombia" title="Colombia" class="flag-dot" width="30" height="20" loading="lazy" decoding="async"></li>
+                    <li><img src="banderas/us.svg" alt="Estados Unidos" title="Estados Unidos" class="flag-dot" width="30" height="20" loading="lazy" decoding="async"></li>
+                    <li><img src="banderas/ec.svg" alt="" title="Ecuador" class="flag-dot" width="30" height="20" loading="lazy" decoding="async"></li>
+                    <li><img src="banderas/pe.svg" alt="" title="Perú" class="flag-dot" width="30" height="20" loading="lazy" decoding="async"></li>
+                    <li><img src="banderas/ve.svg" alt="" title="Venezuela" class="flag-dot" width="30" height="20" loading="lazy" decoding="async"></li>
+                    <li><img src="banderas/mx.svg" alt="" title="México" class="flag-dot" width="30" height="20" loading="lazy" decoding="async"></li>
+                    <li><img src="banderas/co.svg" alt="" title="Colombia" class="flag-dot" width="30" height="20" loading="lazy" decoding="async"></li>
+                    <li><img src="banderas/us.svg" alt="" title="Estados Unidos" class="flag-dot" width="30" height="20" loading="lazy" decoding="async"></li>
+                </ul>
+                <ul class="flags-track" aria-hidden="true">
+                    <li><img src="banderas/ec.svg" alt="" title="Ecuador" class="flag-dot" width="30" height="20" loading="lazy" decoding="async"></li>
+                    <li><img src="banderas/pe.svg" alt="" title="Perú" class="flag-dot" width="30" height="20" loading="lazy" decoding="async"></li>
+                    <li><img src="banderas/ve.svg" alt="" title="Venezuela" class="flag-dot" width="30" height="20" loading="lazy" decoding="async"></li>
+                    <li><img src="banderas/mx.svg" alt="" title="México" class="flag-dot" width="30" height="20" loading="lazy" decoding="async"></li>
+                    <li><img src="banderas/co.svg" alt="" title="Colombia" class="flag-dot" width="30" height="20" loading="lazy" decoding="async"></li>
+                    <li><img src="banderas/us.svg" alt="" title="Estados Unidos" class="flag-dot" width="30" height="20" loading="lazy" decoding="async"></li>
+                    <li><img src="banderas/ec.svg" alt="" title="Ecuador" class="flag-dot" width="30" height="20" loading="lazy" decoding="async"></li>
+                    <li><img src="banderas/pe.svg" alt="" title="Perú" class="flag-dot" width="30" height="20" loading="lazy" decoding="async"></li>
+                    <li><img src="banderas/ve.svg" alt="" title="Venezuela" class="flag-dot" width="30" height="20" loading="lazy" decoding="async"></li>
+                    <li><img src="banderas/mx.svg" alt="" title="México" class="flag-dot" width="30" height="20" loading="lazy" decoding="async"></li>
+                    <li><img src="banderas/co.svg" alt="" title="Colombia" class="flag-dot" width="30" height="20" loading="lazy" decoding="async"></li>
+                    <li><img src="banderas/us.svg" alt="" title="Estados Unidos" class="flag-dot" width="30" height="20" loading="lazy" decoding="async"></li>
+                </ul>
             </div>
         </section>
 
